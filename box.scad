@@ -3,8 +3,11 @@ bottomDepth = bottomWidth;
 bottomHeight = 50;
 bottomThick = 3;
 
-topWidth = 140;
-topDepth = topWidth;
+lidSideThick = 2; // From lid
+lidSideBoxClearance = 0.5; // clearance from lid to box on each side
+
+topWidth = bottomWidth - 2 * (lidSideThick + lidSideBoxClearance);
+topDepth = bottomDepth - 2 * (lidSideThick + lidSideBoxClearance);
 topHeight = 30;
 topThick = 3;
 
@@ -12,7 +15,7 @@ connectingBrimThick = max(topThick, bottomThick) * 2;
 
 keywayWidth = 5;
 keywayOffsetX = topWidth / 2;
-keywayOffsetZ = topHeight * 0.25;
+keywayOffsetZ = 18;
 
 keyholeWidth = 10;
 keyholeHeight = 5;

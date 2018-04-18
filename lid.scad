@@ -27,7 +27,7 @@ boxTopThick = 3; // corresponds to topThick on box
 // clearance to sides in built into lidSideThick
 boxInsideClearance = 1;
 
-lidSideBoxClearance = 1; // From box
+lidSideBoxClearance = 2; // From box
 
 // This is the offset from the origin (either X or Y) to where the inner workings of
 // the lid can start.  It includes necessary clearances to fit the lid on the box.
@@ -39,20 +39,20 @@ holeGridPosY = (lidDepth - (holeGridSizeY - 1) * holeSpacing) / 2;
 slideWidth = (holeGridPosX - holeRadius - innerLidPartsOffset) / 2;
 slideHeight = buttonSlotTopOffset - lidTopThick;
 slideDepth = lidDepth - 2 * innerLidPartsOffset;
-slideDepth = lidDepth - 2 * (lidSideThick + boxTopThick + boxInsideClearance);
 
 numberFontSize = 2.5;
 numLabelStart = 1;
 numLabelEnd = 9;
 
 slidePlateWidth = lidWidth - 2 * (innerLidPartsOffset + slideWidth / 2);
+echo("slidePlateWidth", slidePlateWidth);
 sideSlideClearance = 1;
 
 slidePlateVerticalClearance = 1;
 basePlateTotalThick = 10; // thickness of base plate including needed mechanisms; determines clearance to sliding plate
 basePlateTopOffset = slideHeight + slidePlateThick + slidePlateVerticalClearance + basePlateTotalThick; // distance from bottom of top of lid, to bottom of base plate
 
-clipThickness = 2;
+clipThickness = 1.5;
 clipDepth = slideDepth / 8;
 clipOverhang = 4;
 
@@ -104,30 +104,37 @@ union() {
     translate([slide2PosX + slideWidth - sideSlideWidth, slidePosY, slidePosZ - sideSlideHeight])
         cube([sideSlideWidth, slideDepth, sideSlideHeight]);
     // Clips
+    clipHeight = basePlateTopOffset - slideHeight - sideSlideHeight;
+    filletSize = min(clipHeight / 4, sideSlideWidth - clipThickness);
     translate([slide1PosX, clipDepth + slidePosY, slidePosZ - sideSlideHeight])
         rotate([180, 0, 0])
-            clipMale([clipThickness, clipDepth, basePlateTopOffset - slideHeight - sideSlideHeight], clipOverhang);
+            clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize);
     translate([slide1PosX, slidePosY + slideDepth, slidePosZ - sideSlideHeight])
         rotate([180, 0, 0])
-            clipMale([clipThickness, clipDepth, basePlateTopOffset - slideHeight - sideSlideHeight], clipOverhang);
+            clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize);
     translate([slide2PosX + slideWidth, slidePosY, slidePosZ - sideSlideHeight])
         rotate([180, 0, 180])
-            clipMale([clipThickness, clipDepth, basePlateTopOffset - slideHeight - sideSlideHeight], clipOverhang);
+            clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize);
     translate([slide2PosX + slideWidth, slidePosY + slideDepth - clipDepth, slidePosZ - sideSlideHeight])
         rotate([180, 0, 180])
-            clipMale([clipThickness, clipDepth, basePlateTopOffset - slideHeight - sideSlideHeight], clipOverhang);
+            clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize);
 };
 
 // clipArmSize is a vector [ thickness, depth, height ]; height is to bottom of clip wedge, does not include wedge height
 // wedgeOverhang is the amount that the wedge overhangs the thing it's clipping
-module clipMale(clipArmSize, wedgeOverhang) {
+// filletSize is the amount the fillet extends from the base
+module clipMale(clipArmSize, wedgeOverhang, filletSize) {
     wedgeHeight = wedgeOverhang + clipArmSize[0];
     cube([clipArmSize[0], clipArmSize[1], clipArmSize[2]]);
     translate([0, clipArmSize[1], clipArmSize[2]])
         rotate([90, 0, 0])
             linear_extrude(clipArmSize[1])
                 polygon([[0, 0], [0, wedgeHeight], [wedgeOverhang + clipArmSize[0], 0]]);
+    translate([clipArmSize[0], clipArmSize[1], 0])
+        rotate([90, 0, 0])
+            linear_extrude(clipArmSize[1])
+                polygon([[0, 0], [0, filletSize], [filletSize, 0]]);
 };
 
-//clipMale([2, 10, 20], 2);
+//!clipMale([2, 10, 20], 2, 2);
 

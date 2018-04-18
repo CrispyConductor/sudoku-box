@@ -45,14 +45,15 @@ echo("slidePlateWidth", slidePlateWidth);
 sideSlideClearance = 1;
 
 slidePlateVerticalClearance = 1;
+basePlateThick = 3; // Thickness of just base plate base sheet
 basePlateTotalThick = 10; // thickness of base plate including needed mechanisms; determines clearance to sliding plate
 basePlateTopOffset = slideHeight + slidePlateThick + slidePlateVerticalClearance + basePlateTotalThick; // distance from bottom of top of lid, to bottom of base plate
 
-clipThickness = 1.5;
+clipThickness = 2;
 clipDepth = slideDepth / 8;
 clipOverhang = 4;
 
-//rotate([0, 180, 0]) // rotate to 3d printable orientation
+rotate([0, 180, 0]) // rotate to 3d printable orientation
 union() {
     difference() {
         // Main body of lid
@@ -114,23 +115,46 @@ union() {
     translate([slide2PosX + slideWidth, slidePosY + slideDepth - clipDepth, slidePosZ - sideSlideHeight])
         rotate([180, 0, 180])
             clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize);
+    // Central clips.  These aren't actually used as clips.  They extend lower than the others and are
+    // intended to fit into recesses in the base plate to prevent front-to-back movement.
+    centralClipPosY = slideDepth / 2 + slidePosY - clipDepth / 2;
+    translate([slide1PosX, clipDepth + centralClipPosY, slidePosZ - sideSlideHeight])
+        rotate([180, 0, 0])
+            clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize, squareVerticalExtension = basePlateThick);
+    translate([slide2PosX + slideWidth, centralClipPosY, slidePosZ - sideSlideHeight])
+        rotate([180, 0, 180])
+            clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize, squareVerticalExtension = basePlateThick);
 };
 
 // clipArmSize is a vector [ thickness, depth, height ]; height is to bottom of clip wedge, does not include wedge height
 // wedgeOverhang is the amount that the wedge overhangs the thing it's clipping
 // filletSize is the amount the fillet extends from the base
-module clipMale(clipArmSize, wedgeOverhang, filletSize) {
+module clipMale(clipArmSize, wedgeOverhang, filletSize = 0, squareVerticalExtension = 0, taper = true) {
     wedgeHeight = wedgeOverhang + clipArmSize[0];
-    cube([clipArmSize[0], clipArmSize[1], clipArmSize[2]]);
+    taperTop = clipArmSize[0] / 2; // Thickness at top of the taper
+    // Stalk
+    if (taper)
+        translate([0, clipArmSize[1], 0])
+            rotate([90, 0, 0])
+                linear_extrude(clipArmSize[1])
+                    polygon([[0, 0], [clipArmSize[0], 0], [taperTop, clipArmSize[2]], [0, clipArmSize[2]]]);
+    else
+        cube([clipArmSize[0], clipArmSize[1], clipArmSize[2]]);
+    // Overhang
     translate([0, clipArmSize[1], clipArmSize[2]])
         rotate([90, 0, 0])
             linear_extrude(clipArmSize[1])
                 polygon([[0, 0], [0, wedgeHeight], [wedgeOverhang + clipArmSize[0], 0]]);
-    translate([clipArmSize[0], clipArmSize[1], 0])
+    // Fillet
+    translate([0, clipArmSize[1], 0])
         rotate([90, 0, 0])
             linear_extrude(clipArmSize[1])
-                polygon([[0, 0], [0, filletSize], [filletSize, 0]]);
+                polygon([[0, 0], [0, filletSize + clipArmSize[0]], [filletSize + clipArmSize[0], 0]]);
+    // Square vertical extension
+    if(squareVerticalExtension > 0)
+        translate([0, 0, clipArmSize[2] - squareVerticalExtension])
+            cube([wedgeOverhang + clipArmSize[0], clipArmSize[1], squareVerticalExtension]);
 };
 
-//!clipMale([2, 10, 20], 2, 2);
+//!clipMale([2, 10, 20], 2, 2, 3);
 

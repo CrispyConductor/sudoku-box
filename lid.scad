@@ -1,14 +1,13 @@
+include <sharedparams.scad>
+
 $fa = 3;
 $fs = 0.5;
 
 use <Write.scad>
 
-lidTopThick = 3;
-lidSideThick = 2;
-
-lidWidth = 150; // corresponds to bottomWidth on box
-lidDepth = 150; // corresponds to bottomDepth on box
-lidHeight = 30 + lidTopThick; // corresponds to topHeight on box, plus lidTopThick
+lidWidth = boxSize[0];
+lidDepth = boxSize[1];
+lidHeight = boxTopSectionHeight + lidTopThick;
 
 holeGridSizeX = 9;
 holeGridSizeY = 9;
@@ -19,15 +18,12 @@ slidePlateThick = 3;
 
 buttonSlotWidth = 5;
 buttonSlotHeight = slidePlateThick + 1;
-keywayOffsetZ = 18; // from bottom of lid to bottom of button slot, from box
+keywayOffsetZ = boxKeywayOffsetZ; // from bottom of lid to bottom of button slot
 buttonSlotTopOffset = lidHeight - keywayOffsetZ - buttonSlotHeight + 0.5;
 
-boxTopThick = 3; // corresponds to topThick on box
 // amount of clearance to leave between inside workings and box
 // clearance to sides in built into lidSideThick
 boxInsideClearance = 1;
-
-lidSideBoxClearance = 2; // From box
 
 // This is the offset from the origin (either X or Y) to where the inner workings of
 // the lid can start.  It includes necessary clearances to fit the lid on the box.
@@ -56,7 +52,7 @@ clipThickness = 1.5;
 clipDepth = slideDepth / 8;
 clipOverhang = 4;
 
-rotate([0, 180, 0]) // rotate to 3d printable orientation
+//rotate([0, 180, 0]) // rotate to 3d printable orientation
 union() {
     difference() {
         // Main body of lid

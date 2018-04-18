@@ -1,21 +1,20 @@
-bottomWidth = 150;
-bottomDepth = bottomWidth;
-bottomHeight = 50;
-bottomThick = 3;
+include <sharedparams.scad>
 
-lidSideThick = 2; // From lid
-lidSideBoxClearance = 1; // clearance from lid to box on each side
+bottomWidth = boxSize[0];
+bottomDepth = boxSize[1];
+bottomHeight = boxSize[2] - boxTopSectionHeight - lidTopThick;
+bottomThick = 3;
 
 topWidth = bottomWidth - 2 * (lidSideThick + lidSideBoxClearance);
 topDepth = bottomDepth - 2 * (lidSideThick + lidSideBoxClearance);
-topHeight = 30;
-topThick = 3;
+topHeight = boxTopSectionHeight;
+topThick = boxTopThick;
 
 connectingBrimThick = max(topThick, bottomThick) * 2;
 
 keywayWidth = 5;
 keywayOffsetX = topWidth / 2;
-keywayOffsetZ = 18;
+keywayOffsetZ = boxKeywayOffsetZ;
 
 keyholeWidth = 10;
 keyholeHeight = 5;

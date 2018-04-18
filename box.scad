@@ -4,7 +4,7 @@ bottomHeight = 50;
 bottomThick = 3;
 
 lidSideThick = 2; // From lid
-lidSideBoxClearance = 0.5; // clearance from lid to box on each side
+lidSideBoxClearance = 1; // clearance from lid to box on each side
 
 topWidth = bottomWidth - 2 * (lidSideThick + lidSideBoxClearance);
 topDepth = bottomDepth - 2 * (lidSideThick + lidSideBoxClearance);

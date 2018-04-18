@@ -27,21 +27,36 @@ boxTopThick = 3; // corresponds to topThick on box
 // clearance to sides in built into lidSideThick
 boxInsideClearance = 1;
 
+lidSideBoxClearance = 1; // From box
+
+// This is the offset from the origin (either X or Y) to where the inner workings of
+// the lid can start.  It includes necessary clearances to fit the lid on the box.
+innerLidPartsOffset = lidSideThick + lidSideBoxClearance + boxTopThick + boxInsideClearance;
+
 holeGridPosX = (lidWidth - (holeGridSizeX - 1) * holeSpacing) / 2;
 holeGridPosY = (lidDepth - (holeGridSizeY - 1) * holeSpacing) / 2;
 
-slideWidth = (holeGridPosX - holeRadius - lidSideThick - boxTopThick - boxInsideClearance) / 2;
+slideWidth = (holeGridPosX - holeRadius - innerLidPartsOffset) / 2;
 slideHeight = buttonSlotTopOffset - lidTopThick;
+slideDepth = lidDepth - 2 * innerLidPartsOffset;
 slideDepth = lidDepth - 2 * (lidSideThick + boxTopThick + boxInsideClearance);
 
 numberFontSize = 2.5;
 numLabelStart = 1;
 numLabelEnd = 9;
 
-slidePlateWidth = lidWidth - 2 * (lidSideThick + boxTopThick + boxInsideClearance + slideWidth / 2);
-sideSlideClearance = 0.5;
+slidePlateWidth = lidWidth - 2 * (innerLidPartsOffset + slideWidth / 2);
+sideSlideClearance = 1;
 
-//rotate([0, 180, 0]) // rotate to 3d printable orientation
+slidePlateVerticalClearance = 1;
+basePlateTotalThick = 10; // thickness of base plate including needed mechanisms; determines clearance to sliding plate
+basePlateTopOffset = slideHeight + slidePlateThick + slidePlateVerticalClearance + basePlateTotalThick; // distance from bottom of top of lid, to bottom of base plate
+
+clipThickness = 2;
+clipDepth = slideDepth / 8;
+clipOverhang = 4;
+
+rotate([0, 180, 0]) // rotate to 3d printable orientation
 union() {
     difference() {
         // Main body of lid
@@ -73,10 +88,10 @@ union() {
         }
     };
     // Slides
-    slidePosY = lidSideThick + boxTopThick + boxInsideClearance;
+    slidePosY = innerLidPartsOffset;
     slidePosZ = lidHeight - slideHeight - lidTopThick;
-    slide1PosX = lidSideThick + boxTopThick + boxInsideClearance;
-    slide2PosX = lidWidth - lidSideThick - boxTopThick - boxInsideClearance - slideWidth;
+    slide1PosX = innerLidPartsOffset;
+    slide2PosX = lidWidth - innerLidPartsOffset - slideWidth;
     translate([slide1PosX, slidePosY, slidePosZ])
         cube([slideWidth, slideDepth, slideHeight]);
     translate([slide2PosX, slidePosY, slidePosZ])
@@ -88,6 +103,19 @@ union() {
         cube([sideSlideWidth, slideDepth, sideSlideHeight]);
     translate([slide2PosX + slideWidth - sideSlideWidth, slidePosY, slidePosZ - sideSlideHeight])
         cube([sideSlideWidth, slideDepth, sideSlideHeight]);
+    // Clips
+    translate([slide1PosX, clipDepth + slidePosY, slidePosZ - sideSlideHeight])
+        rotate([180, 0, 0])
+            clipMale([clipThickness, clipDepth, basePlateTopOffset - slideHeight - sideSlideHeight], clipOverhang);
+    translate([slide1PosX, slidePosY + slideDepth, slidePosZ - sideSlideHeight])
+        rotate([180, 0, 0])
+            clipMale([clipThickness, clipDepth, basePlateTopOffset - slideHeight - sideSlideHeight], clipOverhang);
+    translate([slide2PosX + slideWidth, slidePosY, slidePosZ - sideSlideHeight])
+        rotate([180, 0, 180])
+            clipMale([clipThickness, clipDepth, basePlateTopOffset - slideHeight - sideSlideHeight], clipOverhang);
+    translate([slide2PosX + slideWidth, slidePosY + slideDepth - clipDepth, slidePosZ - sideSlideHeight])
+        rotate([180, 0, 180])
+            clipMale([clipThickness, clipDepth, basePlateTopOffset - slideHeight - sideSlideHeight], clipOverhang);
 };
 
 // clipArmSize is a vector [ thickness, depth, height ]; height is to bottom of clip wedge, does not include wedge height

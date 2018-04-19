@@ -5,34 +5,18 @@ $fs = 0.5;
 
 use <Write.scad>
 
-lidWidth = boxSize[0];
-lidDepth = boxSize[1];
-lidHeight = boxTopSectionHeight + lidTopThick;
+lidWidth = lidSize[0];
+lidDepth = lidSize[1];
+lidHeight = lidSize[2];
 
-holeGridSizeX = 9;
-holeGridSizeY = 9;
-holeRadius = 3;
-holeSpacing = 12;
-
-slidePlateThick = 3;
+holeRadius = topHoleRadius;
 
 buttonSlotWidth = 5;
 buttonSlotHeight = slidePlateThick + 1;
 keywayOffsetZ = boxKeywayOffsetZ; // from bottom of lid to bottom of button slot
 buttonSlotTopOffset = lidHeight - keywayOffsetZ - buttonSlotHeight + 0.5;
 
-// amount of clearance to leave between inside workings and box
-// clearance to sides in built into lidSideThick
-boxInsideClearance = 1;
-
-// This is the offset from the origin (either X or Y) to where the inner workings of
-// the lid can start.  It includes necessary clearances to fit the lid on the box.
-innerLidPartsOffset = lidSideThick + lidSideBoxClearance + boxTopThick + boxInsideClearance;
-
-holeGridPosX = (lidWidth - (holeGridSizeX - 1) * holeSpacing) / 2;
-holeGridPosY = (lidDepth - (holeGridSizeY - 1) * holeSpacing) / 2;
-
-slideWidth = (holeGridPosX - holeRadius - innerLidPartsOffset) / 2;
+slideWidth = holeGridPosX - pinBottomRadius - pinRotateClearance - innerLidPartsOffset;
 slideHeight = buttonSlotTopOffset - lidTopThick;
 slideDepth = lidDepth - 2 * innerLidPartsOffset;
 
@@ -40,7 +24,7 @@ numberFontSize = 2.5;
 numLabelStart = 1;
 numLabelEnd = 9;
 
-slidePlateWidth = lidWidth - 2 * (innerLidPartsOffset + slideWidth / 2);
+//slidePlateWidth = lidWidth - 2 * (innerLidPartsOffset + slideWidth / 2);
 echo("slidePlateWidth", slidePlateWidth);
 sideSlideClearance = 1;
 
@@ -103,16 +87,16 @@ union() {
     // Clips
     clipHeight = basePlateTopOffset - slideHeight - sideSlideHeight;
     filletSize = min(clipHeight / 4, sideSlideWidth - clipThickness);
-    translate([slide1PosX, clipDepth + slidePosY, slidePosZ - sideSlideHeight])
+    translate([slide1PosX, clipDepth + slidePosY + clipEdgeOffset, slidePosZ - sideSlideHeight])
         rotate([180, 0, 0])
             clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize);
-    translate([slide1PosX, slidePosY + slideDepth, slidePosZ - sideSlideHeight])
+    translate([slide1PosX, slidePosY + slideDepth - clipEdgeOffset, slidePosZ - sideSlideHeight])
         rotate([180, 0, 0])
             clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize);
-    translate([slide2PosX + slideWidth, slidePosY, slidePosZ - sideSlideHeight])
+    translate([slide2PosX + slideWidth, slidePosY + clipEdgeOffset, slidePosZ - sideSlideHeight])
         rotate([180, 0, 180])
             clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize);
-    translate([slide2PosX + slideWidth, slidePosY + slideDepth - clipDepth, slidePosZ - sideSlideHeight])
+    translate([slide2PosX + slideWidth, slidePosY + slideDepth - clipDepth - clipEdgeOffset, slidePosZ - sideSlideHeight])
         rotate([180, 0, 180])
             clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize);
     // Central clips.  These aren't actually used as clips.  They extend lower than the others and are

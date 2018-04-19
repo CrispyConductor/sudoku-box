@@ -2,6 +2,7 @@ $fa = 3;
 $fs = 0.5;
 
 use <Write.scad>
+include <sharedparams.scad>
 
 topHeight = 20;
 bottomHeight = 15;
@@ -9,8 +10,8 @@ topPlateThick = 5;
 slidePlateThick = 5;
 slidePlateClearance = 1.5;
 topSlideDistance = 2;
-topRadius = 2.5;
-bottomRadius = 4;
+topRadius = pinTopRadius;
+bottomRadius = pinBottomRadius;
 notchWidth = bottomRadius / 2;
 detentVerticalOffset = topSlideDistance + slidePlateThick + 5;
 detentRadius = 1;

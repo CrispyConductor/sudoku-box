@@ -65,4 +65,42 @@ slidePlateBorderSize = 5;
 // Width of the sliding plate
 slidePlateWidth = (holeGridSizeX - 1) * holeSpacing + 2 * (pinBottomRadius + slidePlatePinClearance + slidePlateBorderSize);
 
-clipEdgeOffset = 2;
+// Offset from the top of lid to near side of sliding plate
+slidePlateTopOffset = lidSize[2] - boxKeywayOffsetZ;
+
+// Thickness of just base plate base sheet
+basePlateThick = 3;
+
+// thickness of base plate including needed mechanisms
+basePlateTotalThick = 10; // todo: calculate this
+
+// Distance from top of base plate mechanisms to bottom of slide plate
+slidePlateToBaseClearance  = 3;
+
+// Distance from the top of the lid to the top of the base plate base (ie, the top of the plate, not including mechanisms)
+basePlateBaseTopOffset = slidePlateTopOffset + slidePlateThick + slidePlateToBaseClearance + basePlateTotalThick - basePlateThick;
+
+//cutOutPegDepth = 
+
+slideWidth = holeGridPosX - pinBottomRadius - pinRotateClearance - innerLidPartsOffset;
+slideHeight = slidePlateTopOffset - lidTopThick;
+slideDepth = lidSize[1] - 2 * innerLidPartsOffset;
+
+slidePosY = innerLidPartsOffset;
+slidePosZ = lidSize[2] - slideHeight - lidTopThick;
+slide1PosX = innerLidPartsOffset;
+slide2PosX = lidSize[0] - innerLidPartsOffset - slideWidth;
+
+sideSlideClearance = 1;
+
+sideSlideWidth = (lidSize[0] - slidePlateWidth) / 2 - slide1PosX - sideSlideClearance;
+sideSlideHeight = slidePlateThick;
+sideSlidePosZ = slidePosZ - sideSlideHeight;
+
+postWidth = sideSlideWidth;
+postDepth = slideDepth / 10;
+postHeight = basePlateBaseTopOffset - (lidSize[2] - sideSlidePosZ);
+
+fastenerPegDepth = postDepth / 2;
+fastenerSlotThroat = postWidth * 0.65;
+

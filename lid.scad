@@ -14,11 +14,7 @@ holeRadius = topHoleRadius;
 buttonSlotWidth = 5;
 buttonSlotHeight = slidePlateThick + 1;
 keywayOffsetZ = boxKeywayOffsetZ; // from bottom of lid to bottom of button slot
-buttonSlotTopOffset = lidHeight - keywayOffsetZ - buttonSlotHeight + 0.5;
-
-slideWidth = holeGridPosX - pinBottomRadius - pinRotateClearance - innerLidPartsOffset;
-slideHeight = buttonSlotTopOffset - lidTopThick;
-slideDepth = lidDepth - 2 * innerLidPartsOffset;
+buttonSlotTopOffset = slidePlateTopOffset - buttonSlotHeight - 0.5;
 
 numberFontSize = 2.5;
 numLabelStart = 1;
@@ -26,18 +22,17 @@ numLabelEnd = 9;
 
 //slidePlateWidth = lidWidth - 2 * (innerLidPartsOffset + slideWidth / 2);
 echo("slidePlateWidth", slidePlateWidth);
-sideSlideClearance = 1;
 
-slidePlateVerticalClearance = 1;
-basePlateThick = 3; // Thickness of just base plate base sheet
-basePlateTotalThick = 10; // thickness of base plate including needed mechanisms; determines clearance to sliding plate
-basePlateTopOffset = slideHeight + slidePlateThick + slidePlateVerticalClearance + basePlateTotalThick; // distance from bottom of top of lid, to bottom of base plate
+//slidePlateVerticalClearance = 1;
 
+//basePlateTopOffset = slideHeight + slidePlateThick + slidePlateVerticalClearance + basePlateTotalThick; // distance from bottom of top of lid, to bottom of base plate
+/*
 clipThickness = 2;
 clipDepth = slideDepth / 8;
 clipOverhang = 4;
+*/
 
-rotate([0, 180, 0]) // rotate to 3d printable orientation
+//rotate([0, 180, 0]) // rotate to 3d printable orientation
 union() {
     difference() {
         // Main body of lid
@@ -69,22 +64,36 @@ union() {
         }
     };
     // Slides
-    slidePosY = innerLidPartsOffset;
-    slidePosZ = lidHeight - slideHeight - lidTopThick;
-    slide1PosX = innerLidPartsOffset;
-    slide2PosX = lidWidth - innerLidPartsOffset - slideWidth;
     translate([slide1PosX, slidePosY, slidePosZ])
         cube([slideWidth, slideDepth, slideHeight]);
     translate([slide2PosX, slidePosY, slidePosZ])
         cube([slideWidth, slideDepth, slideHeight]);
     // Side slides
-    sideSlideWidth = (lidWidth - slidePlateWidth) / 2 - slide1PosX - sideSlideClearance;
-    sideSlideHeight = slidePlateThick;
-    translate([slide1PosX, slidePosY, slidePosZ - sideSlideHeight])
+    translate([slide1PosX, slidePosY, sideSlidePosZ])
         cube([sideSlideWidth, slideDepth, sideSlideHeight]);
-    translate([slide2PosX + slideWidth - sideSlideWidth, slidePosY, slidePosZ - sideSlideHeight])
+    translate([slide2PosX + slideWidth - sideSlideWidth, slidePosY, sideSlidePosZ])
         cube([sideSlideWidth, slideDepth, sideSlideHeight]);
+    // Posts
+    translate([slide1PosX, slidePosY + postDepth, sideSlidePosZ])
+        rotate([180, 0, 0])
+            basePlatePost([postWidth, postDepth, postHeight], fastenerPegDepth, basePlateThick, fastenerSlotThroat);
+    translate([slide1PosX, slidePosY + postDepth / 2 + slideDepth / 2, sideSlidePosZ])
+        rotate([180, 0, 0])
+            basePlatePost([postWidth, postDepth, postHeight], fastenerPegDepth, basePlateThick, fastenerSlotThroat);
+    translate([slide1PosX, slidePosY + slideDepth, sideSlidePosZ])
+        rotate([180, 0, 0])
+            basePlatePost([postWidth, postDepth, postHeight], fastenerPegDepth, basePlateThick, fastenerSlotThroat);
+    translate([slide2PosX + slideWidth - sideSlideWidth + postWidth, slidePosY, sideSlidePosZ])
+        rotate([180, 0, 180])
+            basePlatePost([postWidth, postDepth, postHeight], fastenerPegDepth, basePlateThick, fastenerSlotThroat);
+    translate([slide2PosX + slideWidth - sideSlideWidth + postWidth, slidePosY + slideDepth / 2 - postDepth / 2, sideSlidePosZ])
+        rotate([180, 0, 180])
+            basePlatePost([postWidth, postDepth, postHeight], fastenerPegDepth, basePlateThick, fastenerSlotThroat);
+    translate([slide2PosX + slideWidth - sideSlideWidth + postWidth, slidePosY + slideDepth - postDepth, sideSlidePosZ])
+        rotate([180, 0, 180])
+            basePlatePost([postWidth, postDepth, postHeight], fastenerPegDepth, basePlateThick, fastenerSlotThroat);
     // Clips
+/*
     clipHeight = basePlateTopOffset - slideHeight - sideSlideHeight;
     filletSize = min(clipHeight / 4, sideSlideWidth - clipThickness);
     translate([slide1PosX, clipDepth + slidePosY + clipEdgeOffset, slidePosZ - sideSlideHeight])
@@ -108,6 +117,7 @@ union() {
     translate([slide2PosX + slideWidth, centralClipPosY, slidePosZ - sideSlideHeight])
         rotate([180, 0, 180])
             clipMale([clipThickness, clipDepth, clipHeight], clipOverhang, filletSize, squareVerticalExtension = basePlateThick);
+*/
 };
 
 // clipArmSize is a vector [ thickness, depth, height ]; height is to bottom of clip wedge, does not include wedge height
@@ -141,4 +151,29 @@ module clipMale(clipArmSize, wedgeOverhang, filletSize = 0, squareVerticalExtens
 };
 
 //!clipMale([2, 10, 20], 2, 2, 3);
+
+// postSize is the size of the post the plate sits on, not including the bit on top that extends through the plate
+// cutOutPegDepth is the depth of the cutouts in the base plate.
+// plateThick is the thickness of the base plate
+// fastenerSlotThroat is the amount the fastener will protrude into the post, must be less than postSize[0]
+module basePlatePost(postSize, cutOutPegDepth, plateThick, fastenerSlotThroat) {
+    // Post
+    cube(postSize);
+    // Locating peg
+    locatingPegOffsetY = (postSize[1] - cutOutPegDepth) / 2;
+    translate([0, locatingPegOffsetY, postSize[2]])
+        cube([postSize[0], cutOutPegDepth, plateThick]);
+    // Fastener clip
+    reinforcementHeight = fastenerSlotThroat / 3;
+    translate([0, locatingPegOffsetY, postSize[2] + plateThick])
+        difference() {
+            cube([postSize[0], cutOutPegDepth, fastenerSlotThroat + reinforcementHeight]);
+            translate([postSize[0] - fastenerSlotThroat, postSize[1], 0])
+                rotate([90, 0, 0])
+                    linear_extrude(postSize[1])
+                        polygon([[0, 0], [fastenerSlotThroat * 2, 0], [fastenerSlotThroat * 2, fastenerSlotThroat * 2]]);
+        };
+};
+
+//!basePlatePost([10, 20, 40], 8, 3, 7);
 

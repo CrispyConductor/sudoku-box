@@ -1,12 +1,12 @@
 include <sharedparams.scad>
 
-slidePlateDepth = 150;
 
 slidePlateHoleRadius = pinBottomRadius + slidePlatePinClearance / 2;
+slideDistance = pinNotchDepth;
 
 // Offset from edge of slide plate to center of first hole
 holeEdgeOffsetX = (slidePlateWidth - (holeGridSizeX - 1) * holeSpacing) / 2;
-holeEdgeOffsetY = (slidePlateDepth - (holeGridSizeY - 1) * holeSpacing) / 2;
+holeEdgeOffsetY = (slidePlateDepth - (holeGridSizeY - 1) * holeSpacing) / 2; // NOT GONNA WORK FIX ME
 
 difference() {
     // Main rectangle

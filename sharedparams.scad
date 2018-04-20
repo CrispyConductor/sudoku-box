@@ -1,5 +1,5 @@
 // Total outside dimensions of box plus lid; width, depth, height
-boxSize = [150, 150, 80];
+boxSize = [200, 200, 80];
 
 // Thickness of the top surface of the lid.
 lidTopThick = 3;
@@ -43,7 +43,7 @@ pinBottomRadius = 4;
 topHoleRadius = pinTopRadius + 0.5;
 
 // Distance between centers of holes
-holeSpacing = 12;
+holeSpacing = pinBottomRadius * 4;
 
 // How many holes
 holeGridSizeX = 9;
@@ -80,7 +80,11 @@ slidePlateToBaseClearance  = 3;
 // Distance from the top of the lid to the top of the base plate base (ie, the top of the plate, not including mechanisms)
 basePlateBaseTopOffset = slidePlateTopOffset + slidePlateThick + slidePlateToBaseClearance + basePlateTotalThick - basePlateThick;
 
-//cutOutPegDepth = 
+// Amount the notch protrudes into the pin from the farthest point on the circumference
+pinNotchDepth = pinBottomRadius * 2 * 0.75;
+
+// Depth of the sliding plate
+slidePlateDepth = lidSize[1] - 2 * (lidSideThick + lidSideBoxClearance + boxTopThick + boxInsideClearance) - pinNotchDepth * 1.25;
 
 slideWidth = holeGridPosX - pinBottomRadius - pinRotateClearance - innerLidPartsOffset;
 slideHeight = slidePlateTopOffset - lidTopThick;

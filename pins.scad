@@ -35,7 +35,14 @@ module pin (num, isFixedPosition) {
                 translate([0, 0, -bottomHeight]) cylinder(h=bottomHeight, r=bottomRadius);
             };
             // Large notch in side
-            rotate([0, 0, numAngle]) translate([-bottomRadius * 0.75, -notchWidth / 2, -(slidePlateThick + slidePlateClearance + topSlideDistance)]) cube([bottomRadius * 2, notchWidth, slidePlateThick + slidePlateClearance * 2]);
+            rotate([0, 0, numAngle])
+            translate([bottomRadius - pinNotchDepth, -notchWidth / 2, -(slidePlateThick + slidePlateClearance + topSlideDistance)])
+            cube([pinNotchDepth * 1.1, notchWidth, slidePlateThick + slidePlateClearance * 2]);
+            /*
+            rotate([0, 0, numAngle])
+                translate([-bottomRadius * 0.75, -notchWidth / 2, -(slidePlateThick + slidePlateClearance + topSlideDistance)])
+                    cube([bottomRadius * 2, notchWidth, slidePlateThick + slidePlateClearance * 2]);
+            */
             // Detents
             for(ang = [0 : 360 / 9 : 359]) {
                rotate([0, 0, ang]) translate([bottomRadius, 0, -detentVerticalOffset]) sphere(detentRadius);

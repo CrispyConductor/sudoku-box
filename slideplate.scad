@@ -6,14 +6,29 @@ slideDistance = pinNotchDepth;
 
 // Offset from edge of slide plate to center of first hole
 holeEdgeOffsetX = (slidePlateWidth - (holeGridSizeX - 1) * holeSpacing) / 2;
-holeEdgeOffsetY = (slidePlateDepth - (holeGridSizeY - 1) * holeSpacing) / 2; // NOT GONNA WORK FIX ME
+holeEdgeOffsetY = (slidePlateDepth - (holeGridSizeY - 1) * holeSpacing) / 2 - slideDistance / 2;
 
-difference() {
-    // Main rectangle
-    cube([slidePlateWidth, slidePlateDepth, slidePlateThick]);
-    // Holes
+union() {
+    difference() {
+        // Main rectangle
+        cube([slidePlateWidth, slidePlateDepth, slidePlateThick]);
+        // Holes
+        for (holeX = [0 : holeGridSizeX - 1], holeY = [0 : holeGridSizeY - 1]) {
+            // First hole
+            translate([holeX * holeSpacing + holeEdgeOffsetX, holeY * holeSpacing + holeEdgeOffsetY, 0])
+                cylinder(r=slidePlateHoleRadius, h=slidePlateThick);
+            // Second hole
+            translate([holeX * holeSpacing + holeEdgeOffsetX, holeY * holeSpacing + holeEdgeOffsetY + slideDistance, 0])
+                cylinder(r=slidePlateHoleRadius, h=slidePlateThick);
+            // Rectangle between the two
+            translate([holeX * holeSpacing + holeEdgeOffsetX, holeY * holeSpacing + holeEdgeOffsetY + slideDistance / 2, slidePlateThick / 2])
+                cube([slidePlateHoleRadius * 2, slideDistance, slidePlateThick], center=true);
+        }
+    };
+    // Prongs
+    prongLength = slideDistance - prongLengthClearance + slidePlatePinClearance / 2;
     for (holeX = [0 : holeGridSizeX - 1], holeY = [0 : holeGridSizeY - 1]) {
-        translate([holeX * holeSpacing + holeEdgeOffsetX, holeY * holeSpacing + holeEdgeOffsetY, 0])
-            cylinder(r=slidePlateHoleRadius, h=slidePlateThick);
+        translate([holeX * holeSpacing + holeEdgeOffsetX + pinNotchClearance, holeY * holeSpacing + holeEdgeOffsetY + slideDistance + slidePlateHoleRadius - prongLength / 2, slidePlateThick / 2])
+            cube([pinNotchWidth - pinNotchClearance * 2, prongLength, slidePlateThick], center=true);
     }
 };

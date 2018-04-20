@@ -86,6 +86,15 @@ pinNotchDepth = pinBottomRadius * 2 * 0.75;
 // Depth of the sliding plate
 slidePlateDepth = lidSize[1] - 2 * (lidSideThick + lidSideBoxClearance + boxTopThick + boxInsideClearance) - pinNotchDepth * 1.25;
 
+// Width of the notch in pins
+pinNotchWidth = pinBottomRadius / 2;
+
+// Amount of clearance between the prongs and pin notches on each side of the notch
+pinNotchClearance = 0.4;
+
+// Amount of space to leave between pins and prongs in locked state
+prongLengthClearance = 1;
+
 slideWidth = holeGridPosX - pinBottomRadius - pinRotateClearance - innerLidPartsOffset;
 slideHeight = slidePlateTopOffset - lidTopThick;
 slideDepth = lidSize[1] - 2 * innerLidPartsOffset;

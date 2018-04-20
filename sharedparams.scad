@@ -1,5 +1,14 @@
 // Total outside dimensions of box plus lid; width, depth, height
-boxSize = [200, 200, 80];
+boxSize = [150, 150, 80];
+
+// Radius of the top section of the pins
+pinBottomRadius = boxSize[0] / 50;
+
+// Radius of the top section of the pins
+pinTopRadius = pinBottomRadius * 0.625;
+
+// Distance between centers of holes
+holeSpacing = pinBottomRadius * 4;
 
 // Thickness of the top surface of the lid.
 lidTopThick = 3;
@@ -33,17 +42,8 @@ boxInsideClearance = 1;
 // the lid can start.  It includes necessary clearances to fit the lid on the box.
 innerLidPartsOffset = lidSideThick + lidSideBoxClearance + boxTopThick + boxInsideClearance;
 
-// Radius of the top section of the pins
-pinTopRadius = 2.5;
-
-// Radius of the top section of the pins
-pinBottomRadius = 4;
-
 // Radius of the holes in the lid
 topHoleRadius = pinTopRadius + 0.5;
-
-// Distance between centers of holes
-holeSpacing = pinBottomRadius * 4;
 
 // How many holes
 holeGridSizeX = 9;

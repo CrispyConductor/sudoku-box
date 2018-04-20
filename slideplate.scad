@@ -1,5 +1,7 @@
 include <sharedparams.scad>
 
+$fa = 3;
+$fs = 0.5;
 
 slidePlateHoleRadius = pinBottomRadius + slidePlatePinClearance / 2;
 slideDistance = pinNotchDepth;
@@ -27,8 +29,9 @@ union() {
     };
     // Prongs
     prongLength = slideDistance - prongLengthClearance + slidePlatePinClearance / 2;
+    prongWidth = pinNotchWidth - pinNotchClearance * 2;
     for (holeX = [0 : holeGridSizeX - 1], holeY = [0 : holeGridSizeY - 1]) {
-        translate([holeX * holeSpacing + holeEdgeOffsetX + pinNotchClearance, holeY * holeSpacing + holeEdgeOffsetY + slideDistance + slidePlateHoleRadius - prongLength / 2, slidePlateThick / 2])
-            cube([pinNotchWidth - pinNotchClearance * 2, prongLength, slidePlateThick], center=true);
+        translate([holeX * holeSpacing + holeEdgeOffsetX, holeY * holeSpacing + holeEdgeOffsetY + slideDistance + slidePlateHoleRadius - prongLength / 2, slidePlateThick / 2])
+            cube([prongWidth, prongLength, slidePlateThick], center=true);
     }
 };

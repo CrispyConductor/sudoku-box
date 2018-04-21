@@ -28,6 +28,18 @@ lidSize = [boxSize[0], boxSize[1], boxTopSectionHeight + lidTopThick];
 // Distance from bottom of lid to bottom of slot for button
 boxKeywayOffsetZ = 18;
 
+// Width of the box keyway slot (narrow part)
+boxKeywayWidth = 5;
+
+// Width of box key slot (thick part)
+boxKeyholeWidth = boxKeywayWidth * 2;
+
+// Amount of space to leave between the button arm and keyway slot, on each side
+keywayClearanceX = 0.5;
+
+// Amount of space to leave between button and keyhole, on each side
+keyholeClearanceZ = 0.5;
+
 // Clearance to leave between inner sides of lid and outer sides of the top of the box, on each side
 lidSideBoxClearance = 1.5;
 

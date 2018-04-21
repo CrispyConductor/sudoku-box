@@ -31,7 +31,12 @@ union() {
     prongLength = slideDistance - prongLengthClearance + slidePlatePinClearance / 2;
     prongWidth = pinNotchWidth - pinNotchClearance * 2;
     for (holeX = [0 : holeGridSizeX - 1], holeY = [0 : holeGridSizeY - 1]) {
-        translate([holeX * holeSpacing + holeEdgeOffsetX, holeY * holeSpacing + holeEdgeOffsetY + slideDistance + slidePlateHoleRadius - prongLength / 2, slidePlateThick / 2])
+        translate([holeX * holeSpacing + holeEdgeOffsetX, holeY * holeSpacing + holeEdgeOffsetY - slidePlateHoleRadius + prongLength / 2, slidePlateThick / 2])
             cube([prongWidth, prongLength, slidePlateThick], center=true);
     }
+    // Button arm (minus button)
+    buttonArmWidth = boxKeyholeWidth - 2 * keywayClearanceX;
+    buttonArmLength = 30;
+    translate([slidePlateWidth / 2 - buttonArmWidth / 2, -buttonArmLength, 0])
+        cube([buttonArmWidth, buttonArmLength, slidePlateThick]);
 };

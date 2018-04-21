@@ -12,12 +12,12 @@ topThick = boxTopThick;
 
 connectingBrimThick = max(topThick, bottomThick) * 2;
 
-keywayWidth = 5;
+keywayWidth = boxKeywayWidth;
 keywayOffsetX = topWidth / 2;
 keywayOffsetZ = boxKeywayOffsetZ;
 
-keyholeWidth = 10;
-keyholeHeight = 5;
+keyholeWidth = boxKeyholeWidth;
+keyholeHeight = slidePlateThick + 2 * keyholeClearanceZ;
 
 union() {
     // Bottom shell
@@ -40,7 +40,7 @@ union() {
             translate([keywayOffsetX - keywayWidth / 2, 0, keywayOffsetZ])
                 cube([keywayWidth, topThick, topHeight]);
             // Keyhole at bottom of slot
-            translate([keywayOffsetX - keyholeWidth / 2, 0, keywayOffsetZ])
+            translate([keywayOffsetX - keyholeWidth / 2, 0, keywayOffsetZ - keyholeClearanceZ])
                 cube([keyholeWidth, topThick, keyholeHeight]);
         };
     // Brim between top and bottom

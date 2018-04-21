@@ -4,8 +4,8 @@ $fs = 0.5;
 use <Write.scad>
 include <sharedparams.scad>
 
-topHeight = 20;
-bottomHeight = 15;
+topHeight = lidTopThick + 10;
+bottomHeight = basePlateBaseTopOffset - lidTopThick;
 topPlateThick = 5;
 slidePlateThick = 5;
 slidePlateClearance = 1.5;

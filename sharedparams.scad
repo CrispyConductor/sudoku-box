@@ -107,6 +107,16 @@ pinNotchClearance = 0.4;
 // Amount of space to leave between pins and prongs in locked state
 prongLengthClearance = 1;
 
+// Amount of clearance to leave for pressing the button to unlock the box.
+// ie, the distance the button travels past the point where it unlocks the box.
+buttonPressClearance = 0.5;
+
+// The minimum amount the buttons extends in the unlocked (pushed) position
+buttonMinExtension = 5;
+
+// Vertical clearance between slides for sliding plate
+slidePlateVerticalClearance = 1.5;
+
 slideWidth = holeGridPosX - pinBottomRadius - pinRotateClearance - innerLidPartsOffset;
 slideHeight = slidePlateTopOffset - lidTopThick;
 slideDepth = lidSize[1] - 2 * innerLidPartsOffset;

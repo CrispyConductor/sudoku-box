@@ -7,6 +7,7 @@ slidePlateHoleRadius = pinBottomRadius + slidePlatePinClearance / 2;
 slideDistance = pinNotchDepth;
 
 // Offset from edge of slide plate to center of first hole
+// The "first" hole is the one the pin occupies in the unlocked position.  The "second" hole is moved slideDistance in the Y direction
 holeEdgeOffsetX = (slidePlateWidth - (holeGridSizeX - 1) * holeSpacing) / 2;
 holeEdgeOffsetY = (slidePlateDepth - (holeGridSizeY - 1) * holeSpacing) / 2 - slideDistance / 2;
 
@@ -36,7 +37,14 @@ union() {
     }
     // Button arm (minus button)
     buttonArmWidth = boxKeyholeWidth - 2 * keywayClearanceX;
-    buttonArmLength = 30;
-    translate([slidePlateWidth / 2 - buttonArmWidth / 2, -buttonArmLength, 0])
+    // buttonArmLength is the distance from the front edge of the sliding plate to the inner side of the front of the box (not the lid), minus buttonPressClearance, in unlocked position.
+    buttonArmLength = holeGridPosY - lidSideThick - lidSideBoxClearance * 2 - boxTopThick - buttonPressClearance - holeEdgeOffsetY;
+    translate([slidePlateWidth / 2 - buttonArmWidth / 2 + keywayClearanceX, -buttonArmLength, 0])
         cube([buttonArmWidth, buttonArmLength, slidePlateThick]);
+    // Button
+    buttonWidth = boxKeywayWidth - 2 * keywayClearanceX;
+    // must be sufficiently long to extend out the front of the box buttonMinExtension in the unlocked position
+    buttonLength = buttonPressClearance + boxTopThick + lidSideBoxClearance * 2 + lidSideThick + buttonMinExtension;
+    translate([slidePlateWidth / 2 - buttonWidth / 2 + keywayClearanceX, -buttonArmLength - buttonLength, 0])
+        cube([buttonWidth, buttonLength, slidePlateThick]);
 };

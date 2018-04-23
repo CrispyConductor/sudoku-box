@@ -12,7 +12,7 @@ lidHeight = lidSize[2];
 holeRadius = topHoleRadius;
 
 buttonSlotWidth = 5;
-buttonSlotHeight = slidePlateThick + 1;
+buttonSlotHeight = slidePlateThick + lidButtonSlotClearance * 2;
 keywayOffsetZ = boxKeywayOffsetZ; // from bottom of lid to bottom of button slot
 buttonSlotTopOffset = slidePlateTopOffset - buttonSlotHeight - 0.5;
 

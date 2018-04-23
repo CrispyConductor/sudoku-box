@@ -25,8 +25,14 @@ boxTopSectionHeight = 30;
 // Total outside dimensions of the lid
 lidSize = [boxSize[0], boxSize[1], boxTopSectionHeight + lidTopThick];
 
+// Offset from top of the lid to top of the button
+buttonTopOffset = 15;
+
+// Amount of clearance between the sliding button and button hole in the lid, on each side
+lidButtonSlotClearance = 0.5;
+
 // Distance from bottom of lid to bottom of slot for button
-boxKeywayOffsetZ = 18;
+boxKeywayOffsetZ = lidSize[2] - buttonTopOffset;
 
 // Width of the box keyway slot (narrow part)
 boxKeywayWidth = 5;
@@ -78,7 +84,7 @@ slidePlateBorderSize = 5;
 slidePlateWidth = (holeGridSizeX - 1) * holeSpacing + 2 * (pinBottomRadius + slidePlatePinClearance + slidePlateBorderSize);
 
 // Offset from the top of lid to near side of sliding plate
-slidePlateTopOffset = lidSize[2] - boxKeywayOffsetZ;
+slidePlateTopOffset = buttonTopOffset;
 
 // Thickness of just base plate base sheet
 basePlateThick = 3;

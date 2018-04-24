@@ -42,7 +42,6 @@ union() {
     translate([slidePlateWidth / 2 - buttonArmWidth / 2 + keywayClearanceX, -buttonArmLength, 0])
         cube([buttonArmWidth, buttonArmLength, slidePlateThick]);
     // Button
-    buttonWidth = boxKeywayWidth - 2 * keywayClearanceX;
     // must be sufficiently long to extend out the front of the box buttonMinExtension in the unlocked position
     buttonLength = buttonPressClearance + boxTopThick + lidSideBoxClearance * 2 + lidSideThick + buttonMinExtension;
     translate([slidePlateWidth / 2 - buttonWidth / 2 + keywayClearanceX, -buttonArmLength - buttonLength, 0])

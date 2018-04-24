@@ -11,10 +11,11 @@ lidHeight = lidSize[2];
 
 holeRadius = topHoleRadius;
 
-buttonSlotWidth = 5;
-buttonSlotHeight = slidePlateThick + lidButtonSlotClearance * 2;
+buttonSlotWidth = boxKeywayWidth;
+buttonSlotHeight = slidePlateThick + lidButtonSlotClearanceZ * 2;
 keywayOffsetZ = boxKeywayOffsetZ; // from bottom of lid to bottom of button slot
-buttonSlotTopOffset = slidePlateTopOffset - buttonSlotHeight - 0.5;
+buttonSlotTopOffset = buttonTopOffset - lidButtonSlotClearanceZ; // from top of lid to top of button slot
+echo("buttonSlotTopOffset", buttonSlotTopOffset);
 
 numberFontSize = 2.5;
 numLabelStart = 1;

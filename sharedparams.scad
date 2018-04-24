@@ -28,20 +28,23 @@ lidSize = [boxSize[0], boxSize[1], boxTopSectionHeight + lidTopThick];
 // Offset from top of the lid to top of the button
 buttonTopOffset = 15;
 
-// Amount of clearance between the sliding button and button hole in the lid, on each side
-lidButtonSlotClearance = 0.5;
+// Amount of clearance between the sliding button and button hole in the lid, on each side in vertical direction
+lidButtonSlotClearanceZ = 0.5;
 
 // Distance from bottom of lid to bottom of slot for button
 boxKeywayOffsetZ = lidSize[2] - buttonTopOffset;
 
-// Width of the box keyway slot (narrow part)
-boxKeywayWidth = 5;
-
-// Width of box key slot (thick part)
-boxKeyholeWidth = boxKeywayWidth * 2;
+// Width of the button in the front
+buttonWidth = 4;
 
 // Amount of space to leave between the button arm and keyway slot, on each side
 keywayClearanceX = 0.5;
+
+// Width of the box keyway slot (narrow part)
+boxKeywayWidth = buttonWidth + 2 * keywayClearanceX;
+
+// Width of box key slot (thick part)
+boxKeyholeWidth = boxKeywayWidth * 2;
 
 // Amount of space to leave between button and keyhole, on each side
 keyholeClearanceZ = 0.5;

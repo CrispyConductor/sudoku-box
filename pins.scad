@@ -66,11 +66,14 @@ module pin (num, isFixedPosition) {
                 rotate([0, 0, markNum * 360 / 9 / 2]) translate([(bottomRadius + cavityRadius) / 2, 0, -bottomHeight]) sphere(markRadius);
             }*/
         };
-        // Square pin in bottom cavity, only for fixed position
+        // Key in bottom cavity, only for fixed position
         if (isFixedPosition) {
-            rotate([0, 0, numAngle])
+            /*rotate([0, 0, numAngle])
                 translate([-fixedPosKeyWidth / 2, -fixedPosKeyWidth / 2, -bottomHeight])
-                    cube([fixedPosKeyWidth, fixedPosKeyWidth, pinBottomCavityHeight]);
+                    cube([fixedPosKeyWidth, fixedPosKeyWidth, pinBottomCavityHeight]);*/
+            rotate([0, 0, numAngle])
+                translate([0, 0, -bottomHeight + pinBottomCavityHeight/2])
+                    cube([pinBottomCavityRadius * 2, fixedPosKeyWidth, pinBottomCavityHeight], center=true);
         }
     };
 }

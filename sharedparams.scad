@@ -133,13 +133,13 @@ buttonMinExtension = 5;
 slidePlateVerticalClearance = 1.5;
 
 // Radius of the pivot hole in the bottom of the pin
-pinBottomCavityRadius = pinBottomRadius * 0.6;
+pinBottomCavityRadius = pinBottomRadius - 1;
 
 // Height of pin bottom cavity
 pinBottomCavityHeight = 3;
 
-// Length of each side of the square in center of cavity for fixed pins
-fixedPosKeyWidth = pinBottomCavityRadius * 0.75;
+// Length of the bottom cavity key notch
+fixedPosKeyWidth = pinBottomRadius - pinBottomCavityRadius;
 
 slideWidth = holeGridPosX - pinBottomRadius - pinRotateClearance - innerLidPartsOffset;
 slideHeight = slidePlateTopOffset - lidTopThick;

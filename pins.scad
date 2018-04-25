@@ -44,7 +44,7 @@ module pin (num, isFixedPosition) {
             */
             // Detents
             detentWidth = 1;
-            detentDepth = 0.75;
+            detentDepth = 0.5;
             detentHeight = detentProngHeight + 2.5;
             for(ang = [0 : 360 / 9 : 359]) {
                rotate([0, 0, ang])
@@ -80,18 +80,25 @@ module pin (num, isFixedPosition) {
 
 // How many of each pin
 duplicateCount = 1;
+// How many numbers
 maxNum = 1;
-gridWidth = ceil(sqrt(duplicateCount * 2 * maxNum));
-gridSpacing = bottomRadius * 2 + 1;
+
+includeFixedPins = true;
+includeMovingPins = true;
+numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
+
+gridWidth = ceil(sqrt(duplicateCount * numPinTypes * maxNum));
+gridSpacing = bottomRadius * 2 + 0.25;
 
 // Iterate through pin numbers, whether fixed or not, and 1-9 (need 9 of each type)
 union() {
     for (setNum = [1 : 1 : duplicateCount]) {
-        for(isFixed = [0 : 1 : 1]) {
+        for(typeNum = [0 : 1 : numPinTypes - 1]) {
             for(pinNum = [1 : 1 : maxNum]) {
-                gridNum = (setNum - 1) * 2 * maxNum + isFixed * maxNum + pinNum - 1;
+                gridNum = (setNum - 1) * 2 * maxNum + typeNum * maxNum + pinNum - 1;
                 gridX = floor(gridNum / gridWidth);
                 gridY = gridNum % gridWidth;
+                isFixed = includeMovingPins ? typeNum : 1;
                 translate([gridX * gridSpacing, gridY * gridSpacing, 0]) pin(pinNum, isFixed);
             }
         }

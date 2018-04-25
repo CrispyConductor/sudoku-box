@@ -139,7 +139,7 @@ pinBottomCavityRadius = pinBottomRadius - 1;
 pinBottomCavityHeight = 3;
 
 // Length of the bottom cavity key notch
-fixedPosKeyWidth = pinBottomRadius - pinBottomCavityRadius;
+fixedPosKeyWidth = (pinBottomRadius - pinBottomCavityRadius) * 0.8;
 
 slideWidth = holeGridPosX - pinBottomRadius - pinRotateClearance - innerLidPartsOffset;
 slideHeight = slidePlateTopOffset - lidTopThick;

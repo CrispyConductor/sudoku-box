@@ -9,7 +9,11 @@ basePlateDepth = slideDepth;
 basePlatePosX = slide1PosX;
 basePlatePosY = slidePosY;
 
+// Clearance on each side of the side cutouts
 cutOutClearance = 0.25;
+
+// Clearance on each side of the slide in the pin pivots
+fixedPosKeyClearance = 0.2;
 
 difference() {
     union() {
@@ -54,6 +58,6 @@ module pinBaseModule() {
         cylinder(h=pinBottomCavityHeight, r=pinBottomCavityRadius - pinBottomCavityClearance);
         // Fixed position slot
         translate([0, 0, pinBottomCavityHeight/2])
-            cube([fixedPosKeyWidth, pinBottomCavityRadius * 2, pinBottomCavityHeight], center=true);
+            cube([fixedPosKeyWidth + 2 * fixedPosKeyClearance, pinBottomCavityRadius * 2, pinBottomCavityHeight], center=true);
     };
 };

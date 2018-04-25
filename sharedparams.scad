@@ -163,3 +163,4 @@ postHeight = basePlateBaseTopOffset - (lidSize[2] - sideSlidePosZ);
 fastenerPegDepth = postDepth / 2;
 fastenerSlotThroat = postWidth * 0.65;
 
+pinBottomCavityClearance = 0.5;

@@ -12,9 +12,16 @@ basePlatePosY = slidePosY;
 cutOutClearance = 0.25;
 
 difference() {
-    // Main block, translated to XY reference frame of lid
-    translate([basePlatePosX, basePlatePosY, 0])
-        cube([basePlateWidth, basePlateDepth, basePlateThick]);
+    union() {
+        // Main block, translated to XY reference frame of lid
+        translate([basePlatePosX, basePlatePosY, 0])
+            cube([basePlateWidth, basePlateDepth, basePlateThick]);
+        // Pin bottom supports
+        for (holeX = [0 : holeGridSizeX - 1], holeY = [0 : holeGridSizeY - 1]) {
+            translate([holeX * holeSpacing + holeGridPosX, holeY * holeSpacing + holeGridPosY, basePlateThick])
+                cylinder(h=pinBottomCavityHeight, r=pinBottomCavityRadius - pinBottomCavityClearance);
+        }
+    };
     // Cut-outs
     cutOutWidth = postWidth + cutOutClearance;
     cutOutDepth = fastenerPegDepth + 2 * cutOutClearance;
@@ -38,5 +45,5 @@ translate([slide1PosX + sideSlideWidth, slidePosY, basePlateThick])
     cube([slideWidth - sideSlideWidth, slideDepth, bottomSlideHeight]);
 translate([slide2PosX, slidePosY, basePlateThick])
     cube([slideWidth - sideSlideWidth, slideDepth, bottomSlideHeight]);
-// Pin bottom supports
+
 // Detent mechanisms

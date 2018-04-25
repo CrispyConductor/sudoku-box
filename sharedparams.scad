@@ -92,8 +92,14 @@ slidePlateTopOffset = buttonTopOffset;
 // Thickness of just base plate base sheet
 basePlateThick = 3;
 
+// Height of the detent prongs
+detentProngHeight = 2;
+
+// Offset from the top of the base plate to the Z center of the detent prong
+basePlateDetentProngOffsetZ = 5;
+
 // thickness of base plate including needed mechanisms
-basePlateTotalThick = 10; // todo: calculate this
+basePlateTotalThick = basePlateThick + basePlateDetentProngOffsetZ + detentProngHeight + 3;
 
 // Distance from top of base plate mechanisms to bottom of slide plate
 slidePlateToBaseClearance  = 3;
@@ -125,6 +131,15 @@ buttonMinExtension = 5;
 
 // Vertical clearance between slides for sliding plate
 slidePlateVerticalClearance = 1.5;
+
+// Radius of the pivot hole in the bottom of the pin
+pinBottomCavityRadius = pinBottomRadius * 0.6;
+
+// Height of pin bottom cavity
+pinBottomCavityHeight = 3;
+
+// Length of each side of the square in center of cavity for fixed pins
+fixedPosKeyWidth = pinBottomCavityRadius * 0.75;
 
 slideWidth = holeGridPosX - pinBottomRadius - pinRotateClearance - innerLidPartsOffset;
 slideHeight = slidePlateTopOffset - lidTopThick;

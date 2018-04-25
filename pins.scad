@@ -6,18 +6,13 @@ include <sharedparams.scad>
 
 topHeight = lidTopThick + 10;
 bottomHeight = basePlateBaseTopOffset - lidTopThick;
-topPlateThick = 5;
-slidePlateThick = 5;
 slidePlateClearance = 1.5;
-topSlideDistance = 2;
 topRadius = pinTopRadius;
 bottomRadius = pinBottomRadius;
 notchWidth = pinNotchWidth;
-detentVerticalOffset = topSlideDistance + slidePlateThick + 5;
-detentRadius = 1;
-bottomCavityDepth = 5;
-cavityRadius = bottomRadius * 0.75;
-fixedPosKeyWidth = cavityRadius * 0.75;
+detentVerticalOffset = bottomHeight - basePlateDetentProngOffsetZ;
+//detentRadius = 1;
+
 
 module pin (num, isFixedPosition) {
     numAngle = (num - 1) * (360 / 9);
@@ -27,46 +22,62 @@ module pin (num, isFixedPosition) {
             union() {
                 difference() {
                     // Top/knob portion cylinder.
-                    cylinder(h=topHeight+topPlateThick, r=topRadius);
+                    cylinder(h=topHeight, r=topRadius);
                     // Notch in top.
-                    translate([0, -0.5, topHeight + topPlateThick - 1]) cube([topRadius, 1, 1]);
+                    translate([0, -0.5, topHeight - 1])
+                        cube([topRadius, 1, 1]);
                 };
                 // Add bottom cylinder
-                translate([0, 0, -bottomHeight]) cylinder(h=bottomHeight, r=bottomRadius);
+                translate([0, 0, -bottomHeight])
+                    cylinder(h=bottomHeight, r=bottomRadius);
             };
             // Large notch in side
+            notchHeight = slidePlateThick + slidePlateClearance * 2;
+            notchOffsetZ = -(slidePlateTopOffset - lidTopThick) - notchHeight + slidePlateClearance;
             rotate([0, 0, numAngle])
-            translate([bottomRadius - pinNotchDepth, -notchWidth / 2, -(slidePlateThick + slidePlateClearance + topSlideDistance)])
-            cube([pinNotchDepth * 1.1, notchWidth, slidePlateThick + slidePlateClearance * 2]);
+                translate([bottomRadius - pinNotchDepth, -notchWidth / 2, notchOffsetZ])
+                    cube([pinNotchDepth, notchWidth, notchHeight]);
             /*
             rotate([0, 0, numAngle])
                 translate([-bottomRadius * 0.75, -notchWidth / 2, -(slidePlateThick + slidePlateClearance + topSlideDistance)])
                     cube([bottomRadius * 2, notchWidth, slidePlateThick + slidePlateClearance * 2]);
             */
             // Detents
+            detentWidth = 1;
+            detentDepth = 0.75;
+            detentHeight = detentProngHeight + 2.5;
             for(ang = [0 : 360 / 9 : 359]) {
-               rotate([0, 0, ang]) translate([bottomRadius, 0, -detentVerticalOffset]) sphere(detentRadius);
+               rotate([0, 0, ang])
+                translate([0, 0, -detentVerticalOffset - detentHeight / 2])
+                    linear_extrude(detentHeight)
+                        polygon([[bottomRadius, -(detentWidth/2)], [bottomRadius, detentWidth/2], [bottomRadius - detentDepth, 0]]);
             }
+            /*for(ang = [0 : 360 / 9 : 359]) {
+               rotate([0, 0, ang]) translate([bottomRadius, 0, -detentVerticalOffset]) sphere(detentRadius);
+            }*/
             // Bottom cavity
-            translate([0, 0, -bottomHeight]) cylinder(h=bottomCavityDepth, r=cavityRadius);
+            translate([0, 0, -bottomHeight]) cylinder(h=pinBottomCavityHeight, r=pinBottomCavityRadius);
             // Number label
-            writecylinder(str(num), [0, 0, -bottomHeight], bottomRadius - 0.5, bottomHeight, east=numAngle);
+            translate([0, 0, notchOffsetZ + notchHeight/2 + bottomHeight/2])
+                writecylinder(str(num), [0, 0, -bottomHeight], bottomRadius - 0.5, bottomHeight, east=numAngle);
             // Number marks
-            markRadius = (bottomRadius - cavityRadius) / 3;
+            /*markRadius = (bottomRadius - cavityRadius) / 3;
             for (markNum = [0 : num - 1]) {
                 rotate([0, 0, markNum * 360 / 9 / 2]) translate([(bottomRadius + cavityRadius) / 2, 0, -bottomHeight]) sphere(markRadius);
-            }
+            }*/
         };
         // Square pin in bottom cavity, only for fixed position
         if (isFixedPosition) {
-            rotate([0, 0, numAngle]) translate([-fixedPosKeyWidth / 2, -fixedPosKeyWidth / 2, -bottomHeight]) cube([fixedPosKeyWidth, fixedPosKeyWidth, bottomCavityDepth]);
+            rotate([0, 0, numAngle])
+                translate([-fixedPosKeyWidth / 2, -fixedPosKeyWidth / 2, -bottomHeight])
+                    cube([fixedPosKeyWidth, fixedPosKeyWidth, pinBottomCavityHeight]);
         }
     };
 }
 
 // How many of each pin
 duplicateCount = 1;
-maxNum = 9;
+maxNum = 1;
 gridWidth = ceil(sqrt(duplicateCount * 2 * maxNum));
 gridSpacing = bottomRadius * 2 + 1;
 

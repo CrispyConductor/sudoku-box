@@ -10,7 +10,6 @@ slidePlateClearance = 1.5;
 topRadius = pinTopRadius;
 bottomRadius = pinBottomRadius;
 notchWidth = pinNotchWidth;
-detentVerticalOffset = bottomHeight - basePlateDetentProngOffsetZ;
 //detentRadius = 1;
 
 
@@ -45,10 +44,10 @@ module pin (num, isFixedPosition) {
             // Detents
             detentWidth = 1;
             detentDepth = 0.5;
-            detentHeight = detentProngHeight + 2.5;
+            detentHeight = basePlateDetentProngOffsetZ + detentProngHeight / 2 + 1.5;
             for(ang = [0 : 360 / 9 : 359]) {
                rotate([0, 0, ang])
-                translate([0, 0, -detentVerticalOffset - detentHeight / 2])
+                translate([0, 0, -bottomHeight])
                     linear_extrude(detentHeight)
                         polygon([[bottomRadius, -(detentWidth/2)], [bottomRadius, detentWidth/2], [bottomRadius - detentDepth, 0]]);
             }

@@ -27,10 +27,10 @@ difference() {
         }
         // Bottom slides
         bottomSlideHeight = slidePosZ - (sideSlidePosZ - postHeight) - slidePlateThick - slidePlateVerticalClearance;
-        translate([slide1PosX + sideSlideWidth, slidePosY, basePlateThick])
-            cube([slideWidth - sideSlideWidth, slideDepth, bottomSlideHeight]);
+        translate([slide1PosX + sideSlideWidth + cutOutClearance, slidePosY, basePlateThick])
+            cube([slideWidth - sideSlideWidth - cutOutClearance, slideDepth, bottomSlideHeight]);
         translate([slide2PosX, slidePosY, basePlateThick])
-            cube([slideWidth - sideSlideWidth, slideDepth, bottomSlideHeight]);
+            cube([slideWidth - sideSlideWidth - cutOutClearance, slideDepth, bottomSlideHeight]);
     };
     // Cut-outs
     cutOutWidth = postWidth + cutOutClearance;
@@ -48,9 +48,6 @@ difference() {
     translate([basePlatePosX + basePlateWidth - cutOutWidth, slidePosY + (postDepth - fastenerPegDepth) / 2 - cutOutClearance + slideDepth - postDepth, 0])
         cube([cutOutWidth, cutOutDepth, basePlateThick]);
 }
-
-// Detent mechanisms
-
 
 module pinBaseModule() {
     difference() {

@@ -108,13 +108,13 @@ slidePlateToBaseClearance  = 3;
 basePlateBaseTopOffset = slidePlateTopOffset + slidePlateThick + slidePlateToBaseClearance + basePlateTotalThick - basePlateThick;
 
 // Amount the notch protrudes into the pin from the farthest point on the circumference
-pinNotchDepth = pinBottomRadius * 2 * 0.75;
+pinNotchDepth = pinBottomRadius * 2 * 0.65;
 
 // Depth of the sliding plate
 slidePlateDepth = lidSize[1] - 2 * (lidSideThick + lidSideBoxClearance + boxTopThick + boxInsideClearance) - pinNotchDepth * 1.25;
 
 // Width of the notch in pins
-pinNotchWidth = pinBottomRadius / 2;
+pinNotchWidth = pinBottomRadius * 0.8;
 
 // Amount of clearance between the prongs and pin notches on each side of the notch
 pinNotchClearance = 0.4;
@@ -140,6 +140,15 @@ pinBottomCavityHeight = 3;
 
 // Length of the bottom cavity key notch
 fixedPosKeyWidth = (pinBottomRadius - pinBottomCavityRadius) * 0.8;
+
+ // Width of the support post for the detent prongs
+detentPostWidth = pinBottomRadius * 2;
+
+// Depth/thickness of the support post for the detent prongs
+detentPostDepth = 2.5;
+
+// Distance from the detent post to the outside of the pin cylinder (not counting the bit that protrudes inside the cylinder
+detentProngLength = 3.5;
 
 slideWidth = holeGridPosX - pinBottomRadius - pinRotateClearance - innerLidPartsOffset;
 slideHeight = slidePlateTopOffset - lidTopThick;

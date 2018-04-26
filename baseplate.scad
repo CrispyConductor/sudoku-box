@@ -57,4 +57,21 @@ module pinBaseModule() {
         translate([0, 0, pinBottomCavityHeight/2])
             cube([fixedPosKeyWidth + 2 * fixedPosKeyClearance, pinBottomCavityRadius * 2, pinBottomCavityHeight], center=true);
     };
+    // Detent prong post
+    detentPostHeight = basePlateDetentProngOffsetZ + detentProngHeight / 2;
+    translate([0, pinBottomRadius + detentProngLength, detentPostHeight / 2])
+        cube([detentPostWidth, detentPostDepth, detentPostHeight], center = true);
+    // Detent prong
+    prongBottomOffset = 1; // distance from base plate to base of prong arm
+    prongPointDepth = 0.4; // length of point of prong that protrudes into pin detent
+    prongThick = 0.4; // thickness of prong
+    translate([prongThick / 2, pinBottomRadius + detentProngLength, prongBottomOffset])
+        rotate([90, 0, -90])
+            linear_extrude(prongThick)
+                polygon([
+                    [0, 0],
+                    [0, detentPostHeight - prongBottomOffset],
+                    [detentProngLength + prongPointDepth, detentPostHeight - prongBottomOffset],
+                    [detentProngLength + prongPointDepth, detentPostHeight - prongBottomOffset - detentProngHeight]
+                ]);
 };

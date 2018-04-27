@@ -57,7 +57,7 @@ slidePlateThick = 3;
 
 // amount of clearance to leave between inside workings and box
 // clearance to sides in built into lidSideThick
-boxInsideClearance = 1;
+boxInsideClearance = 2;
 
 // This is the offset from the origin (either X or Y) to where the inner workings of
 // the lid can start.  It includes necessary clearances to fit the lid on the box.

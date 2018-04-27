@@ -60,7 +60,7 @@ union() {
             for (num = [numLabelStart : numLabelEnd]) {
                 numAng = (360 / (numLabelEnd - numLabelStart + 1)) * (num - numLabelStart);
                 // uncomment to enable number labels
-                //translate(center) writecircle(str(num), [0, 0, 0], holeRadius + numberFontSize / 2 + holeRadius * 0.1, h=numberFontSize, rotate=numAng);
+                translate(center) writecircle(str(num), [0, 0, 0], holeRadius + numberFontSize / 2 + holeRadius * 0.1, h=numberFontSize, rotate=numAng);
             }
         }
     };

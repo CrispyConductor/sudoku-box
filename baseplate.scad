@@ -72,7 +72,7 @@ module pinBaseModule() {
     // Detent prong
     prongBottomOffset = 1; // distance from base plate to base of prong arm
     prongPointDepth = 0.4; // length of point of prong that protrudes into pin detent
-    prongThick = 0.4; // thickness of prong
+    prongThick = 0.8; // thickness of prong
     translate([prongThick / 2, pinBottomRadius + detentProngLength, prongBottomOffset])
         rotate([90, 0, -90])
             linear_extrude(prongThick)

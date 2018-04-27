@@ -80,7 +80,7 @@ module pin (num, isFixedPosition) {
 // How many of each pin
 duplicateCount = 1;
 // How many numbers
-maxNum = 1;
+maxNum = 2;
 
 includeFixedPins = true;
 includeMovingPins = true;

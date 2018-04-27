@@ -47,6 +47,14 @@ difference() {
         cube([cutOutWidth, cutOutDepth, basePlateThick]);
     translate([basePlatePosX + basePlateWidth - cutOutWidth, slidePosY + (postDepth - fastenerPegDepth) / 2 - cutOutClearance + slideDepth - postDepth, 0])
         cube([cutOutWidth, cutOutDepth, basePlateThick]);
+    // Clip ball indents
+    for (i = [0 : 2])
+        translate([
+            basePlatePosX + basePlateWidth / 2,
+            slidePosY + postDepth / 2 + i * (-postDepth / 2 + slideDepth / 2),
+            0
+        ])
+            sphere(r=clipBallRadius);
 }
 
 module pinBaseModule() {

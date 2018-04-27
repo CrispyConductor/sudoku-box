@@ -173,3 +173,5 @@ fastenerPegDepth = postDepth / 2;
 fastenerSlotThroat = postWidth * 0.65;
 
 pinBottomCavityClearance = 0.5;
+
+clipBallRadius = 0.75;

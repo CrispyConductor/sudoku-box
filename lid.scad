@@ -33,7 +33,7 @@ clipDepth = slideDepth / 8;
 clipOverhang = 4;
 */
 
-//rotate([0, 180, 0]) // rotate to 3d printable orientation
+rotate([0, 180, 0]) // rotate to 3d printable orientation
 union() {
     difference() {
         // Main body of lid

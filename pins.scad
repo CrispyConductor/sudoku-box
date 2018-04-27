@@ -33,7 +33,7 @@ module pin (num, isFixedPosition) {
             // Large notch in side
             notchHeight = slidePlateThick + slidePlateClearance * 2;
             notchOffsetZ = -(slidePlateTopOffset - lidTopThick) - notchHeight + slidePlateClearance;
-            rotate([0, 0, numAngle])
+            rotate([0, 0, numAngle - 180])
                 translate([bottomRadius - pinNotchDepth, -notchWidth / 2, notchOffsetZ])
                     cube([pinNotchDepth, notchWidth, notchHeight]);
             /*

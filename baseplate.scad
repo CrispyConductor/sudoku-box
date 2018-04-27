@@ -10,7 +10,7 @@ basePlatePosX = slide1PosX;
 basePlatePosY = slidePosY;
 
 // Clearance on each side of the side cutouts
-cutOutClearance = 0.25;
+cutOutClearance = 0.35;
 
 // Clearance on each side of the slide in the pin pivots
 fixedPosKeyClearance = 0.2;

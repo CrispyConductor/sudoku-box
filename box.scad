@@ -3,7 +3,7 @@ include <sharedparams.scad>
 bottomWidth = boxSize[0];
 bottomDepth = boxSize[1];
 bottomHeight = boxSize[2] - boxTopSectionHeight - lidTopThick;
-bottomThick = 3;
+bottomThick = 1.5;
 
 topWidth = bottomWidth - 2 * (lidSideThick + lidSideBoxClearance);
 topDepth = bottomDepth - 2 * (lidSideThick + lidSideBoxClearance);

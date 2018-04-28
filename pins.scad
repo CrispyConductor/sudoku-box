@@ -80,10 +80,10 @@ module pin (num, isFixedPosition) {
 // How many of each pin
 duplicateCount = 1;
 // How many numbers
-maxNum = 2;
+maxNum = 1;
 
 includeFixedPins = true;
-includeMovingPins = true;
+includeMovingPins = false;
 numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
 
 gridWidth = ceil(sqrt(duplicateCount * numPinTypes * maxNum));
@@ -94,7 +94,7 @@ union() {
     for (setNum = [1 : 1 : duplicateCount]) {
         for(typeNum = [0 : 1 : numPinTypes - 1]) {
             for(pinNum = [1 : 1 : maxNum]) {
-                gridNum = (setNum - 1) * 2 * maxNum + typeNum * maxNum + pinNum - 1;
+                gridNum = (setNum - 1) * numPinTypes * maxNum + typeNum * numPinTypes + pinNum - 1;
                 gridX = floor(gridNum / gridWidth);
                 gridY = gridNum % gridWidth;
                 isFixed = includeMovingPins ? typeNum : 1;

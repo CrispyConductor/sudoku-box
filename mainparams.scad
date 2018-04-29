@@ -1,4 +1,4 @@
-knobGridSizeXY = [ 9, 9 ];
+knobGridSizeXY = [ 3, 3 ];
 knobDiameter = 3.75;
 knobSpacing = knobDiameter * 3.2;
 

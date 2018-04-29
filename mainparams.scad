@@ -6,5 +6,5 @@ knobSpacing = knobDiameter * 3.2;
 boxSize = [
     knobGridSizeXY[0] * knobSpacing + 42,
     knobGridSizeXY[1] * knobSpacing + 42,
-    80
+    55
 ];

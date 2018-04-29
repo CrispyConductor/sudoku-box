@@ -1,13 +1,10 @@
 include <mainparams.scad>
 
-// Total outside dimensions of box plus lid; width, depth, height
-boxSize = [150, 150, 80];
+// Radius of the top section of the pins
+pinTopRadius = knobDiameter / 2;
 
 // Radius of the top section of the pins
-pinBottomRadius = boxSize[0] / 50;
-
-// Radius of the top section of the pins
-pinTopRadius = pinBottomRadius * 0.625;
+pinBottomRadius = pinTopRadius + 1.125;
 
 // Distance between centers of holes
 minHoleSpacing = pinBottomRadius * 4;

@@ -75,13 +75,13 @@ holeGridPosX = (lidSize[0] - (holeGridSizeX - 1) * holeSpacing) / 2;
 holeGridPosY = (lidSize[1] - (holeGridSizeY - 1) * holeSpacing) / 2;
 
 // Distance (radius) of clearance from rotating pin to parts
-pinRotateClearance = 1;
+pinRotateClearance = 3;
 
 // Amount added to pin bottom diameter to get the diameter of slide plate holes
 slidePlatePinClearance = 0.8;
 
 // Width of border around edges of holes in sliding plate
-slidePlateBorderSize = 5;
+slidePlateBorderSize = 8;
 
 // Width of the sliding plate
 slidePlateWidth = (holeGridSizeX - 1) * holeSpacing + 2 * (pinBottomRadius + slidePlatePinClearance + slidePlateBorderSize);
@@ -96,7 +96,7 @@ basePlateThick = 3;
 detentProngHeight = 2;
 
 // Offset from the top of the base plate to the Z center of the detent prong
-basePlateDetentProngOffsetZ = 5;
+basePlateDetentProngOffsetZ = 10;
 
 // thickness of base plate including needed mechanisms
 basePlateTotalThick = basePlateThick + basePlateDetentProngOffsetZ + detentProngHeight + 3;
@@ -149,6 +149,10 @@ detentPostDepth = 2.5;
 
 // Distance from the detent post to the outside of the pin cylinder (not counting the bit that protrudes inside the cylinder
 detentProngLength = 3.5;
+
+fixedPinFinWidth = 1.4;
+fixedPinFinSlotClearance = 0.5;
+fixedPinSlotWidth = fixedPinFinWidth + fixedPinFinSlotClearance;
 
 slideWidth = holeGridPosX - pinBottomRadius - pinRotateClearance - innerLidPartsOffset;
 slideHeight = slidePlateTopOffset - lidTopThick;

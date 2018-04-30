@@ -4,7 +4,7 @@ knobSpacing = knobDiameter * 3.2;
 
 // Total outside dimensions of box plus lid; width, depth, height
 boxSize = [
-    knobGridSizeXY[0] * knobSpacing + 42,
-    knobGridSizeXY[1] * knobSpacing + 42,
+    knobGridSizeXY[0] * knobSpacing + 50,
+    knobGridSizeXY[1] * knobSpacing + 50,
     55
 ];

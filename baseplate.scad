@@ -65,7 +65,22 @@ module pinBaseModule() {
     pinSurroundThickness = 1.5;
     surroundInnerRadius = pinBottomRadius + pinSurroundClearance;
     surroundOuterRadius = surroundInnerRadius + pinSurroundThickness;
-    
+    surroundHeight = pinBottomCavityHeight;
+    topGapAngle = 0;
+    difference() {
+        // Partial cylinder with top cut out
+        rotate([0, 0, 90 + topGapAngle / 2])
+            rotate_extrude(angle=360 - topGapAngle)
+                translate([surroundInnerRadius, 0])
+                    square([pinSurroundThickness, surroundHeight]);
+        // Slots for fixed pins
+        rotate([0, 0, 45])
+            translate([-fixedPinSlotWidth/2, -surroundOuterRadius, 0])
+                cube([fixedPinSlotWidth, surroundOuterRadius * 2, surroundHeight]);
+        rotate([0, 0, -45])
+            translate([-fixedPinSlotWidth/2, -surroundOuterRadius, 0])
+                cube([fixedPinSlotWidth, surroundOuterRadius * 2, surroundHeight]);
+    };
     // Detent prong post
     detentPostHeight = basePlateDetentProngOffsetZ + detentProngHeight / 2;
     translate([0, pinBottomRadius + detentProngLength, detentPostHeight / 2])

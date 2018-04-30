@@ -11,6 +11,9 @@ topRadius = pinTopRadius;
 bottomRadius = pinBottomRadius;
 notchWidth = pinNotchWidth;
 //detentRadius = 1;
+// distance fin extends from pinS
+fixedPinFinExtension = 1.8;
+fixedPinFinHeight = pinBottomCavityHeight;
 
 
 module pin (num, isFixedPosition) {
@@ -55,7 +58,8 @@ module pin (num, isFixedPosition) {
                rotate([0, 0, ang]) translate([bottomRadius, 0, -detentVerticalOffset]) sphere(detentRadius);
             }*/
             // Bottom cavity
-            translate([0, 0, -bottomHeight]) cylinder(h=pinBottomCavityHeight, r=pinBottomCavityRadius);
+            translate([0, 0, -bottomHeight])
+                cylinder(h=pinBottomCavityHeight, r=pinBottomCavityRadius);
             // Number label
             translate([0, 0, notchOffsetZ + notchHeight/2 + bottomHeight/2])
                 writecylinder(str(num), [0, 0, -bottomHeight], bottomRadius - 0.5, bottomHeight, east=numAngle);
@@ -65,14 +69,24 @@ module pin (num, isFixedPosition) {
                 rotate([0, 0, markNum * 360 / 9 / 2]) translate([(bottomRadius + cavityRadius) / 2, 0, -bottomHeight]) sphere(markRadius);
             }*/
         };
-        // Key in bottom cavity, only for fixed position
+        
         if (isFixedPosition) {
+            // Side fins
+            difference() {
+                for (i = [-45:90:45])
+                    rotate([0, 0, numAngle + i])
+                        translate([-fixedPinFinWidth/2, -bottomRadius - fixedPinFinExtension, -bottomHeight])
+                            cube([fixedPinFinWidth, bottomRadius * 2 + fixedPinFinExtension * 2, fixedPinFinHeight]);
+                translate([0, 0, -bottomHeight])
+                    cylinder(h=pinBottomCavityHeight, r=pinBottomCavityRadius);
+            };
+            
             /*rotate([0, 0, numAngle])
                 translate([-fixedPosKeyWidth / 2, -fixedPosKeyWidth / 2, -bottomHeight])
                     cube([fixedPosKeyWidth, fixedPosKeyWidth, pinBottomCavityHeight]);*/
-            rotate([0, 0, numAngle])
+            /*rotate([0, 0, numAngle])
                 translate([0, 0, -bottomHeight + pinBottomCavityHeight/2])
-                    cube([pinBottomCavityRadius * 2, fixedPosKeyWidth, pinBottomCavityHeight], center=true);
+                    cube([pinBottomCavityRadius * 2, fixedPosKeyWidth, pinBottomCavityHeight], center=true);*/
         }
     };
 }

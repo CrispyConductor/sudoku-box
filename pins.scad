@@ -94,14 +94,16 @@ module pin (num, isFixedPosition) {
 // How many of each pin
 duplicateCount = 1;
 // How many numbers
-maxNum = 1;
+maxNum = 9;
 
 includeFixedPins = true;
 includeMovingPins = false;
 numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
 
 gridWidth = ceil(sqrt(duplicateCount * numPinTypes * maxNum));
-gridSpacing = bottomRadius * 2 + 0.25;
+movingPinSpacing = bottomRadius * 2 + 0.25;
+fixedPinSpacing = bottomRadius * 2 + fixedPinFinExtension * 2 + fixedPinFinWidth;
+gridSpacing = includeFixedPins ? fixedPinSpacing : movingPinSpacing;
 
 // Iterate through pin numbers, whether fixed or not, and 1-9 (need 9 of each type)
 union() {

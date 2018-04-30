@@ -105,4 +105,13 @@ module pinBaseModule() {
                     [detentProngLength + prongPointDepth, detentPostHeight - prongBottomOffset],
                     [detentProngLength + prongPointDepth, detentPostHeight - prongBottomOffset - detentProngHeight]
                 ]);
+    // Prong side chamfers
+    sideChamferSize = detentProngLength / 8;
+    translate([prongThick / 2, detentPostPosY, prongBottomOffset])
+        linear_extrude(detentPostHeight - prongBottomOffset)
+            polygon([[0, 0], [0, -sideChamferSize], [sideChamferSize, 0]]);
+    mirror([1, 0, 0])
+        translate([prongThick / 2, detentPostPosY, prongBottomOffset])
+            linear_extrude(detentPostHeight - prongBottomOffset)
+                polygon([[0, 0], [0, -sideChamferSize], [sideChamferSize, 0]]);
 };

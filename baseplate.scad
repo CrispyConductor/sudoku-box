@@ -58,13 +58,14 @@ difference() {
 }
 
 module pinBaseModule() {
-    difference() {
-        // Pivot peg
-        cylinder(h=pinBottomCavityHeight, r=pinBottomCavityRadius - pinBottomCavityClearance);
-        // Fixed position slot
-        translate([0, 0, pinBottomCavityHeight/2])
-            cube([fixedPosKeyWidth + 2 * fixedPosKeyClearance, pinBottomCavityRadius * 2, pinBottomCavityHeight], center=true);
-    };
+    // Pivot peg
+    cylinder(h=pinBottomCavityHeight, r=pinBottomCavityRadius - pinBottomCavityClearance);
+    // Surround
+    pinSurroundClearance = pinBottomCavityClearance;
+    pinSurroundThickness = 1.5;
+    surroundInnerRadius = pinBottomRadius + pinSurroundClearance;
+    surroundOuterRadius = surroundInnerRadius + pinSurroundThickness;
+    
     // Detent prong post
     detentPostHeight = basePlateDetentProngOffsetZ + detentProngHeight / 2;
     translate([0, pinBottomRadius + detentProngLength, detentPostHeight / 2])

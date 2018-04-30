@@ -46,4 +46,13 @@ union() {
     buttonLength = buttonPressClearance + boxTopThick + lidSideBoxClearance * 2 + lidSideThick + buttonMinExtension;
     translate([slidePlateWidth / 2 - buttonWidth / 2 + keywayClearanceX, -buttonArmLength - buttonLength, 0])
         cube([buttonWidth, buttonLength, slidePlateThick]);
+    // Lock button and arm
+    // should be positioned such that, in the unlocked position, the thick part completely clears the box, with some clearance
+    // also, in the locked position, the "button" should be flush with the lid
+    lockButtonArmLength = 20;
+    lockButtonLength = lidSideThick + boxTopThick;
+    translate([slidePlateWidth / 2 - buttonWidth / 2, slidePlateDepth, 0])
+        cube([buttonWidth, lockButtonArmLength, slidePlateThick]);
+    translate([slidePlateWidth / 2 - buttonArmWidth / 2, slidePlateDepth + lockButtonArmLength, 0])
+        cube([buttonArmWidth, lockButtonLength, slidePlateThick]);
 };

@@ -52,7 +52,9 @@ union() {
         // Button slot
         translate([lidWidth / 2 - buttonSlotWidth / 2, 0, lidHeight - buttonSlotTopOffset - buttonSlotHeight])
             cube([buttonSlotWidth, lidSideThick, buttonSlotHeight]);
-        
+        // Re-lock button slot on opposite side
+        translate([lidWidth / 2 - boxKeyholeWidth / 2, lidDepth - lidSideThick, lidHeight - buttonSlotTopOffset - buttonSlotHeight])
+            cube([boxKeyholeWidth, lidSideThick, buttonSlotHeight]);
         // Number labels
         numberLabelTextOffsetZ = 0.5;
         for (holeX = [0 : holeGridSizeX - 1], holeY = [0 : holeGridSizeY - 1]) {

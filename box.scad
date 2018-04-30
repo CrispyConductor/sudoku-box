@@ -37,12 +37,9 @@ union() {
             // Cavity
             translate([topThick, topThick, 0])
                 cube([topWidth - topThick * 2, topDepth - topThick * 2, topHeight + 10]);
-            // Keyway slot
-            translate([keywayOffsetX - keywayWidth / 2, 0, keywayOffsetZ])
-                cube([keywayWidth, topThick, topHeight]);
-            // Keyhole at bottom of slot
-            translate([keywayOffsetX - keyholeWidth / 2, 0, keywayOffsetZ - keyholeClearanceZ])
-                cube([keyholeWidth, topThick, keyholeHeight]);
+            // Keyway/keyhole
+            keyhole();
+            translate([0, topDepth - topThick, 0]) keyhole();
         };
     // Brim between top and bottom
     translate([0, 0, bottomHeight - connectingBrimThick])
@@ -74,4 +71,13 @@ union() {
             rotate([-90, 0, 0])
                 linear_extrude(height=bottomDepth)
                     polygon([[0, 0], [chamferLegLenY, 0], [0, chamferLegLenY]]);
+};
+
+module keyhole() {
+    // Keyway slot
+    translate([keywayOffsetX - keywayWidth / 2, 0, keywayOffsetZ])
+        cube([keywayWidth, topThick, topHeight]);
+    // Keyhole at bottom of slot
+    translate([keywayOffsetX - keyholeWidth / 2, 0, keywayOffsetZ - keyholeClearanceZ])
+        cube([keyholeWidth, topThick, keyholeHeight]);
 };

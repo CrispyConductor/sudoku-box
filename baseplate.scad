@@ -31,6 +31,11 @@ difference() {
             cube([slideWidth - sideSlideWidth - cutOutClearance, slideDepth, bottomSlideHeight]);
         translate([slide2PosX, slidePosY, basePlateThick])
             cube([slideWidth - sideSlideWidth - cutOutClearance, slideDepth, bottomSlideHeight]);
+        // "Design by" text
+        designByStr = "Design by Chris Breneman";
+        translate([basePlatePosX + basePlateWidth/2, basePlatePosY + 1, basePlateThick])
+            linear_extrude(0.3)
+                text(text=designByStr, size=2, halign="center", valign="bottom");
     };
     // Cut-outs
     cutOutWidth = postWidth + cutOutClearance;
@@ -107,11 +112,11 @@ module pinBaseModule() {
                 ]);
     // Prong side chamfers
     sideChamferSize = detentProngLength / 8;
-    translate([prongThick / 2, detentPostPosY, prongBottomOffset])
-        linear_extrude(detentPostHeight - prongBottomOffset)
+    translate([prongThick / 2, detentPostPosY, prongBottomOffset + sideChamferSize])
+        linear_extrude(detentPostHeight - prongBottomOffset - sideChamferSize)
             polygon([[0, 0], [0, -sideChamferSize], [sideChamferSize, 0]]);
     mirror([1, 0, 0])
-        translate([prongThick / 2, detentPostPosY, prongBottomOffset])
-            linear_extrude(detentPostHeight - prongBottomOffset)
+        translate([prongThick / 2, detentPostPosY, prongBottomOffset + sideChamferSize])
+            linear_extrude(detentPostHeight - prongBottomOffset - sideChamferSize)
                 polygon([[0, 0], [0, -sideChamferSize], [sideChamferSize, 0]]);
 };

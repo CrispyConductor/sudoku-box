@@ -145,7 +145,7 @@ detentPostWidth = pinBottomRadius * 2;
 detentPostDepth = 1.8;
 
 // Distance from the detent post to the outside of the pin cylinder (not counting the bit that protrudes inside the cylinder
-detentProngLength = 4.1;
+detentProngLength = 3.5;
 
 fixedPinFinWidth = 1.4;
 fixedPinFinSlotClearance = 0.5;

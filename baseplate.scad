@@ -83,13 +83,20 @@ module pinBaseModule() {
     };
     // Detent prong post
     detentPostHeight = basePlateDetentProngOffsetZ + detentProngHeight / 2;
-    translate([0, pinBottomRadius + detentProngLength, detentPostHeight / 2])
+    detentPostPosY = pinBottomRadius + detentProngLength;
+    translate([0, detentPostPosY + detentPostDepth/2, detentPostHeight / 2])
         cube([detentPostWidth, detentPostDepth, detentPostHeight], center = true);
+    // Chamfer at bottom of post
+    chamferSize = 1.2;
+    translate([detentPostWidth / 2, detentPostPosY, 0])
+    rotate([90, 0, -90])
+    linear_extrude(detentPostWidth)
+    polygon([[0, 0], [chamferSize, 0], [0, chamferSize]]);
     // Detent prong
-    prongBottomOffset = 1; // distance from base plate to base of prong arm
     prongPointDepth = 0.4; // length of point of prong that protrudes into pin detent
     prongThick = 0.8; // thickness of prong
-    translate([prongThick / 2, pinBottomRadius + detentProngLength, prongBottomOffset])
+    prongBottomOffset = detentPostHeight - detentProngHeight - detentProngLength - prongPointDepth; // distance from base plate to base of prong arm
+    translate([prongThick / 2, detentPostPosY, prongBottomOffset])
         rotate([90, 0, -90])
             linear_extrude(prongThick)
                 polygon([

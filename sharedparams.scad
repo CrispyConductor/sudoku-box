@@ -90,10 +90,10 @@ slidePlateTopOffset = buttonTopOffset;
 basePlateThick = 3;
 
 // Height of the detent prongs
-detentProngHeight = 2;
+detentProngHeight = 1.5;
 
 // Offset from the top of the base plate to the Z center of the detent prong
-basePlateDetentProngOffsetZ = 10;
+basePlateDetentProngOffsetZ = 15;
 
 // thickness of base plate including needed mechanisms
 basePlateTotalThick = basePlateThick + basePlateDetentProngOffsetZ + detentProngHeight + 3;
@@ -142,10 +142,10 @@ fixedPosKeyWidth = (pinBottomRadius - pinBottomCavityRadius) * 0.8;
 detentPostWidth = pinBottomRadius * 2;
 
 // Depth/thickness of the support post for the detent prongs
-detentPostDepth = 2.5;
+detentPostDepth = 1.8;
 
 // Distance from the detent post to the outside of the pin cylinder (not counting the bit that protrudes inside the cylinder
-detentProngLength = 3.5;
+detentProngLength = 4.1;
 
 fixedPinFinWidth = 1.4;
 fixedPinFinSlotClearance = 0.5;
@@ -173,6 +173,6 @@ postHeight = basePlateBaseTopOffset - (lidSize[2] - sideSlidePosZ);
 fastenerPegDepth = postDepth / 2;
 fastenerSlotThroat = postWidth * 0.65;
 
-pinBottomCavityClearance = 0.5;
+pinBottomCavityClearance = 0.3;
 
 clipBallRadius = 0.75;

@@ -104,6 +104,10 @@ slidePlateToBaseClearance  = 3;
 // Distance from the top of the lid to the top of the base plate base (ie, the top of the plate, not including mechanisms)
 basePlateBaseTopOffset = slidePlateTopOffset + slidePlateThick + slidePlateToBaseClearance + basePlateTotalThick - basePlateThick;
 
+// Height of pin bottom cavity
+//pinBottomCavityHeight = 3;
+pinBottomCavityHeight = basePlateDetentProngOffsetZ - detentProngHeight / 2;
+
 // Amount the notch protrudes into the pin from the farthest point on the circumference
 pinNotchDepth = pinBottomRadius * 2 * 0.65;
 
@@ -131,9 +135,6 @@ slidePlateVerticalClearance = 1;
 
 // Radius of the pivot hole in the bottom of the pin
 pinBottomCavityRadius = pinBottomRadius - 1;
-
-// Height of pin bottom cavity
-pinBottomCavityHeight = 3;
 
 // Length of the bottom cavity key notch
 fixedPosKeyWidth = (pinBottomRadius - pinBottomCavityRadius) * 0.8;
@@ -176,3 +177,5 @@ fastenerSlotThroat = postWidth * 0.65;
 pinBottomCavityClearance = 0.3;
 
 clipBallRadius = 1;
+
+fixedPinFinHeight = 5;

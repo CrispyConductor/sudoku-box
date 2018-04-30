@@ -65,7 +65,7 @@ module pinBaseModule() {
     pinSurroundThickness = 1.5;
     surroundInnerRadius = pinBottomRadius + pinSurroundClearance;
     surroundOuterRadius = surroundInnerRadius + pinSurroundThickness;
-    surroundHeight = pinBottomCavityHeight;
+    surroundHeight = fixedPinFinHeight;
     topGapAngle = 0;
     difference() {
         // Partial cylinder with top cut out

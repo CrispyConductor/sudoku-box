@@ -13,7 +13,6 @@ notchWidth = pinNotchWidth;
 //detentRadius = 1;
 // distance fin extends from pinS
 fixedPinFinExtension = 1.8;
-fixedPinFinHeight = pinBottomCavityHeight;
 
 
 module pin (num, isFixedPosition) {
@@ -94,7 +93,7 @@ module pin (num, isFixedPosition) {
 // How many of each pin
 duplicateCount = 1;
 // How many numbers
-maxNum = 9;
+maxNum = 1;
 
 includeFixedPins = true;
 includeMovingPins = false;

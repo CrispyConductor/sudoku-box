@@ -31,9 +31,6 @@ buttonTopOffset = 15;
 // Amount of clearance between the sliding button and button hole in the lid, on each side in vertical direction
 lidButtonSlotClearanceZ = 0.5;
 
-// Distance from bottom of lid to bottom of slot for button
-boxKeywayOffsetZ = lidSize[2] - buttonTopOffset;
-
 // Width of the button in the front
 buttonWidth = 4;
 
@@ -50,7 +47,7 @@ boxKeyholeWidth = boxKeywayWidth * 2;
 keyholeClearanceZ = 0.5;
 
 // Clearance to leave between inner sides of lid and outer sides of the top of the box, on each side
-lidSideBoxClearance = 1.5;
+lidSideBoxClearance = 0.85;
 
 // Thickness of the sliding plate
 slidePlateThick = 3;

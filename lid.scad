@@ -13,7 +13,6 @@ holeRadius = topHoleRadius;
 
 buttonSlotWidth = boxKeywayWidth;
 buttonSlotHeight = slidePlateThick + lidButtonSlotClearanceZ * 2;
-keywayOffsetZ = boxKeywayOffsetZ; // from bottom of lid to bottom of button slot
 buttonSlotTopOffset = buttonTopOffset - lidButtonSlotClearanceZ; // from top of lid to top of button slot
 echo("buttonSlotTopOffset", buttonSlotTopOffset);
 

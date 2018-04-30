@@ -14,10 +14,11 @@ connectingBrimThick = max(topThick, bottomThick) * 2;
 
 keywayWidth = boxKeywayWidth;
 keywayOffsetX = topWidth / 2;
-keywayOffsetZ = boxKeywayOffsetZ;
 
 keyholeWidth = boxKeyholeWidth;
 keyholeHeight = slidePlateThick + 2 * keyholeClearanceZ;
+
+keywayOffsetZ = lidSize[2] - buttonTopOffset - keyholeHeight + keyholeClearanceZ;
 
 union() {
     // Bottom shell

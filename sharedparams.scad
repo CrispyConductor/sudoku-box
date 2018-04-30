@@ -26,7 +26,7 @@ boxTopSectionHeight = 30;
 lidSize = [boxSize[0], boxSize[1], boxTopSectionHeight + lidTopThick];
 
 // Offset from top of the lid to top of the button
-buttonTopOffset = 15;
+buttonTopOffset = 10;
 
 // Amount of clearance between the sliding button and button hole in the lid, on each side in vertical direction
 lidButtonSlotClearanceZ = 0.5;
@@ -96,7 +96,7 @@ detentProngHeight = 1.5;
 basePlateDetentProngOffsetZ = 15;
 
 // thickness of base plate including needed mechanisms
-basePlateTotalThick = basePlateThick + basePlateDetentProngOffsetZ + detentProngHeight + 3;
+basePlateTotalThick = basePlateThick + basePlateDetentProngOffsetZ + detentProngHeight;
 
 // Distance from top of base plate mechanisms to bottom of slide plate
 slidePlateToBaseClearance  = 3;
@@ -127,7 +127,7 @@ buttonPressClearance = 0.5;
 buttonMinExtension = 5;
 
 // Vertical clearance between slides for sliding plate
-slidePlateVerticalClearance = 1.5;
+slidePlateVerticalClearance = 1;
 
 // Radius of the pivot hole in the bottom of the pin
 pinBottomCavityRadius = pinBottomRadius - 1;
@@ -160,14 +160,14 @@ slidePosZ = lidSize[2] - slideHeight - lidTopThick;
 slide1PosX = innerLidPartsOffset;
 slide2PosX = lidSize[0] - innerLidPartsOffset - slideWidth;
 
-sideSlideClearance = 1;
+sideSlideClearance = 0.5;
 
 sideSlideWidth = (lidSize[0] - slidePlateWidth) / 2 - slide1PosX - sideSlideClearance;
 sideSlideHeight = slidePlateThick;
 sideSlidePosZ = slidePosZ - sideSlideHeight;
 
 postWidth = sideSlideWidth;
-postDepth = slideDepth / 10;
+postDepth = max(slideDepth / 10, 10);
 postHeight = basePlateBaseTopOffset - (lidSize[2] - sideSlidePosZ);
 
 fastenerPegDepth = postDepth / 2;
@@ -175,4 +175,4 @@ fastenerSlotThroat = postWidth * 0.65;
 
 pinBottomCavityClearance = 0.3;
 
-clipBallRadius = 0.75;
+clipBallRadius = 1;

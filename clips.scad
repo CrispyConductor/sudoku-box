@@ -1,11 +1,16 @@
 include <sharedparams.scad>
 
+$fa = 3;
+$fs = 0.5;
+
 clipBottomLengthClearance = 0.25;
 clipBottomLength = slide2PosX - slide1PosX + slideWidth - (postWidth - fastenerSlotThroat) * 2 - clipBottomLengthClearance;
 clipHeight = fastenerSlotThroat;
-clipDepth = fastenerPegDepth;
+//clipDepth = fastenerPegDepth;
+clipDepth = postDepth;
 ballRadius = clipBallRadius;
-chamfer = clipDepth / 8;
+//chamfer = clipDepth / 8;
+chamfer = 0;
 
 module clip() {
     difference() {

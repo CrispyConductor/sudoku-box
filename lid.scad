@@ -54,8 +54,9 @@ union() {
             cube([buttonSlotWidth, lidSideThick, buttonSlotHeight]);
         
         // Number labels
+        numberLabelTextOffsetZ = 0.5;
         for (holeX = [0 : holeGridSizeX - 1], holeY = [0 : holeGridSizeY - 1]) {
-            center = [holeX * holeSpacing + holeGridPosX, holeY * holeSpacing + holeGridPosY, lidHeight - 0.5];
+            center = [holeX * holeSpacing + holeGridPosX, holeY * holeSpacing + holeGridPosY, lidHeight + 0.5 - numberLabelTextOffsetZ];
             for (num = [numLabelStart : numLabelEnd]) {
                 numAng = (360 / (numLabelEnd - numLabelStart + 1)) * (num - numLabelStart);
                 // uncomment to enable number labels
@@ -164,7 +165,8 @@ module basePlatePost(postSize, cutOutPegDepth, plateThick, fastenerSlotThroat) {
     translate([0, locatingPegOffsetY, postSize[2]])
         cube([postSize[0], cutOutPegDepth, plateThick]);
     // Fastener clip
-    reinforcementHeight = fastenerSlotThroat / 3;
+    //reinforcementHeight = fastenerSlotThroat / 3;
+    reinforcementHeight = 0.4;
     translate([0, locatingPegOffsetY, postSize[2] + plateThick])
         difference() {
             cube([postSize[0], cutOutPegDepth, fastenerSlotThroat + reinforcementHeight]);

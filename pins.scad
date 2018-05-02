@@ -28,6 +28,9 @@ module pin (num, isFixedPosition) {
                     // Notch in top.
                     translate([0, -0.5, topHeight - 1])
                         cube([topRadius, 1, 1]);
+                    // Notch in side
+                    translate([topRadius - 1, -0.5, 0])
+                        cube([1, 1, topHeight]);
                 };
                 // Add bottom cylinder
                 translate([0, 0, -bottomHeight])

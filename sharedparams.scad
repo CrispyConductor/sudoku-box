@@ -99,7 +99,7 @@ basePlateDetentProngOffsetZ = 15;
 basePlateTotalThick = basePlateThick + basePlateDetentProngOffsetZ + detentProngHeight;
 
 // Distance from top of base plate mechanisms to bottom of slide plate
-slidePlateToBaseClearance  = 3;
+slidePlateToBaseClearance  = 4;
 
 // Distance from the top of the lid to the top of the base plate base (ie, the top of the plate, not including mechanisms)
 basePlateBaseTopOffset = slidePlateTopOffset + slidePlateThick + slidePlateToBaseClearance + basePlateTotalThick - basePlateThick;

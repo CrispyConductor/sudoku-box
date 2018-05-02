@@ -54,7 +54,7 @@ union() {
             cube([buttonSlotWidth, lidSideThick, buttonSlotHeight]);
         
         // Number labels
-        numberLabelTextOffsetZ = 0.5;
+        numberLabelTextOffsetZ = 0.75;
         for (holeX = [0 : holeGridSizeX - 1], holeY = [0 : holeGridSizeY - 1]) {
             center = [holeX * holeSpacing + holeGridPosX, holeY * holeSpacing + holeGridPosY, lidHeight + 0.5 - numberLabelTextOffsetZ];
             for (num = [numLabelStart : numLabelEnd]) {

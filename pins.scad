@@ -7,7 +7,7 @@ include <sharedparams.scad>
 topHeight = lidTopThick + 10;
 bottomHeightClearance = 0.15;
 bottomHeight = basePlateBaseTopOffset - lidTopThick - bottomHeightClearance;
-slidePlateClearance = 1.5;
+slidePlateClearance = 1.5; // Vertical clearance in notch for slide plate prong
 topRadius = pinTopRadius;
 bottomRadius = pinBottomRadius;
 notchWidth = pinNotchWidth;
@@ -34,7 +34,7 @@ module pin (num, isFixedPosition) {
                     cylinder(h=bottomHeight, r=bottomRadius);
             };
             // Large notch in side
-            notchHeight = slidePlateThick + slidePlateClearance * 2;
+            notchHeight = slidePlateThick + slidePlateClearance * 2 + slidePlateVerticalClearance;
             notchOffsetZ = -(slidePlateTopOffset - lidTopThick) - notchHeight + slidePlateClearance;
             rotate([0, 0, numAngle - 180])
                 translate([bottomRadius - pinNotchDepth, -notchWidth / 2, notchOffsetZ])
@@ -48,7 +48,7 @@ module pin (num, isFixedPosition) {
             detentWidth = 1;
             detentDepth = 0.5;
             //detentHeight = basePlateDetentProngOffsetZ + detentProngHeight / 2 + 1.5;
-            detentExtraClearanceZ = 1.5;
+            detentExtraClearanceZ = 1;
             detentHeight = detentProngHeight + 2 * detentExtraClearanceZ;
             for(ang = [0 : 360 / 9 : 359]) {
                 rotate([0, 0, ang])

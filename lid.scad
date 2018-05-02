@@ -45,7 +45,13 @@ union() {
         union() {
             for (holeX = [0 : holeGridSizeX - 1], holeY = [0 : holeGridSizeY - 1]) {
                 translate([holeX * holeSpacing + holeGridPosX, holeY * holeSpacing + holeGridPosY, lidHeight - lidTopThick])
-                    cylinder(h=lidTopThick, r=holeRadius);
+                    union() {
+                        // hole
+                        cylinder(h=lidTopThick, r=holeRadius);
+                        // cone indent
+                        rotate_extrude()
+                            polygon([[0, 0], [pinBottomConeRadius, 0], [0, pinBottomConeHeight]]);
+                    };
             }
         };
         

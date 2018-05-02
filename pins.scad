@@ -29,12 +29,18 @@ module pin (num, isFixedPosition) {
                     translate([0, -0.5, topHeight - 1])
                         cube([topRadius, 1, 1]);
                     // Notch in side
-                    translate([topRadius - 1, -0.5, 0])
-                        cube([1, 1, topHeight]);
+                    translate([topRadius - 1, -0.5, lidTopThick])
+                        cube([1, 1, topHeight - lidTopThick]);
                 };
                 // Add bottom cylinder
                 translate([0, 0, -bottomHeight])
                     cylinder(h=bottomHeight, r=bottomRadius);
+                // Add bottom cone
+                intersection() {
+                    rotate_extrude()
+                        polygon([[0, 0], [pinBottomConeRadius, 0], [0, pinBottomConeHeight]]);
+                    cylinder(h=pinBottomConeHeight, r=bottomRadius);
+                };
             };
             // Large notch in side
             notchHeight = slidePlateThick + slidePlateClearance * 2 + slidePlateVerticalClearance;

@@ -11,7 +11,7 @@ minHoleSpacing = pinBottomRadius * 4;
 holeSpacing = max(minHoleSpacing, knobSpacing);
 
 // Thickness of the top surface of the lid.
-lidTopThick = 3;
+lidTopThick = 4;
 
 // Thickness of the wall of the top section of the box.
 boxTopThick = 3;
@@ -147,6 +147,12 @@ detentPostDepth = 1.5;
 
 // Distance from the detent post to the outside of the pin cylinder (not counting the bit that protrudes inside the cylinder
 detentProngLength = 3.5;
+
+// Minimum thickness of lid
+lidTopMinThick = lidTopThick / 2;
+
+pinBottomConeHeight = lidTopThick - lidTopMinThick;
+pinBottomConeRadius = pinBottomRadius + 3;
 
 fixedPinFinWidth = 1.4;
 fixedPinFinSlotClearance = 0.5;

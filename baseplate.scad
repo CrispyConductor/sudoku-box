@@ -107,6 +107,7 @@ module pinBaseModule() {
     sideChamferSize = detentProngLength / 8;
     detentProngTotalHeight = detentProngLength + detentProngHeight;
     prongPointDepth = 0.4; // length of point of prong that protrudes into pin detent
+    prongPointWidth = prongThick / 3;
     prongTotalLength = detentProngLength + prongPointDepth;
     translate([0, detentPostPosY, detentPostHeight - detentProngTotalHeight])
         difference() {
@@ -116,17 +117,19 @@ module pinBaseModule() {
                     [prongThick/2 + sideChamferSize, 0],
                     [prongThick/2, -sideChamferSize],
                     [prongThick/2, -detentProngLength],
-                    // point geometry here
+                    [prongPointWidth/2, -detentProngLength - prongPointDepth],
+                    [-prongPointWidth/2, -detentProngLength - prongPointDepth],
                     [-prongThick/2, -detentProngLength],
                     [-prongThick/2, -sideChamferSize],
                 ]);
-            rotate([])
-            linear_extrude(prongThick + 2*sideChamferSize)
-            polygon([
-                [0, 0],
-                [0, prongTotalLength],
-                [prongTotalLength, 0]
-            ]);
+            translate([prongThick/2 + sideChamferSize, -prongTotalLength, 0])
+                rotate([0, -90, 0])
+                    linear_extrude(prongThick + 2*sideChamferSize)
+                        polygon([
+                            [0, 0],
+                            [0, prongTotalLength],
+                            [prongTotalLength, 0]
+                        ]);
         };
     
     

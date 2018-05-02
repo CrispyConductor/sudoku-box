@@ -106,7 +106,7 @@ basePlateBaseTopOffset = slidePlateTopOffset + slidePlateThick + slidePlateToBas
 
 // Height of pin bottom cavity
 //pinBottomCavityHeight = 3;
-pinBottomCavityHeight = basePlateDetentProngOffsetZ - detentProngHeight / 2;
+pinBottomCavityHeight = basePlateDetentProngOffsetZ + detentProngHeight / 2;
 
 // Amount the notch protrudes into the pin from the farthest point on the circumference
 pinNotchDepth = pinBottomRadius * 2 * 0.65;

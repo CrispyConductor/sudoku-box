@@ -5,7 +5,8 @@ use <Write.scad>
 include <sharedparams.scad>
 
 topHeight = lidTopThick + 10;
-bottomHeight = basePlateBaseTopOffset - lidTopThick;
+bottomHeightClearance = 0.15;
+bottomHeight = basePlateBaseTopOffset - lidTopThick - bottomHeightClearance;
 slidePlateClearance = 1.5;
 topRadius = pinTopRadius;
 bottomRadius = pinBottomRadius;
@@ -100,7 +101,7 @@ module pin (num, isFixedPosition) {
 // How many of each pin
 duplicateCount = 1;
 // How many numbers
-maxNum = 1;
+maxNum = 2;
 
 includeFixedPins = true;
 includeMovingPins = false;

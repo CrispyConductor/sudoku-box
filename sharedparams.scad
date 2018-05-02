@@ -112,7 +112,7 @@ pinBottomCavityHeight = basePlateDetentProngOffsetZ + detentProngHeight / 2;
 pinNotchDepth = pinBottomRadius * 2 * 0.65;
 
 // Depth of the sliding plate
-slidePlateDepth = lidSize[1] - 2 * (lidSideThick + lidSideBoxClearance + boxTopThick + boxInsideClearance) - pinNotchDepth * 1.25;
+slidePlateDepth = lidSize[1] - 2 * (lidSideThick + lidSideBoxClearance + boxTopThick + boxInsideClearance) - pinNotchDepth * 1.25; // the additional factor ensures the slide plate bottoms on the prongs/pins and not the inside of the box
 
 // Width of the notch in pins
 pinNotchWidth = pinBottomRadius * 0.8;

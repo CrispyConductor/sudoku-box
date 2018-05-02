@@ -168,7 +168,7 @@ sideSlideHeight = slidePlateThick;
 sideSlidePosZ = slidePosZ - sideSlideHeight;
 
 postWidth = sideSlideWidth;
-postDepth = max(slideDepth / 10, 10);
+postDepth = min(max(slideDepth / 10, 10), 20);
 postHeight = basePlateBaseTopOffset - (lidSize[2] - sideSlidePosZ);
 
 fastenerPegDepth = postDepth / 2;

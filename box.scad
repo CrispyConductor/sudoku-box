@@ -18,7 +18,8 @@ keywayOffsetX = topWidth / 2;
 keyholeWidth = boxKeyholeWidth;
 keyholeHeight = slidePlateThick + 2 * keyholeClearanceZ;
 
-keywayOffsetZ = lidSize[2] - buttonTopOffset - keyholeHeight + keyholeClearanceZ;
+// Offset from bottom of lid to bottom of keyhole slot
+keywayOffsetZ = lidSize[2] - buttonTopOffset - slidePlateThick - keyholeClearanceZ;
 
 union() {
     // Bottom shell

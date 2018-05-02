@@ -44,7 +44,7 @@ boxKeywayWidth = buttonWidth + 2 * keywayClearanceX;
 boxKeyholeWidth = boxKeywayWidth * 2;
 
 // Amount of space to leave between button and keyhole, on each side
-keyholeClearanceZ = 0.5;
+keyholeClearanceZ = 1;
 
 // Clearance to leave between inner sides of lid and outer sides of the top of the box, on each side
 lidSideBoxClearance = 0.5;

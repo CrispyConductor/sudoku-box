@@ -47,9 +47,26 @@ union() {
             cube([prongWidth, prongLength, slidePlateThick], center=true);
     }
     // Button arm (minus button)
-    buttonArmWidth = boxKeyholeWidth - 2 * keywayClearanceX;
+    buttonArmWidth = boxKeyholeWidth - 2 * keywayClearanceX; // width of the key part of the button arm
+    buttonArmFrontYLocked = lidSideThick + 0.1; // Y of the front side of button arm in locked position, ideally
+    buttonArmFrontYUnlocked = buttonArmFrontYLocked + slideDistance; // Y of front side of button arm in unlocked position, ideally
+    buttonArmUnlockedBoxSpace = buttonArmFrontYUnlocked - lidSideThick - lidSideBoxClearance - boxTopThick; // space between button key and inside of box in unlocked position, ideally
+    if (buttonArmUnlockedBoxSpace < buttonPressClearance) {
+        echo("Slide distance insufficient to unlock box with buttonPressClearance.  Recalculating button arm length.");
+        echo("slideDistance", slideDistance, "buttonArmUnlockedBoxSpace", buttonArmUnlockedBoxSpace, "buttonPressClearance", buttonPressClearance);
+    } else {
+        echo("When unlocked, button arm clears box by", buttonArmUnlockedBoxSpace);
+    }
+    buttonArmBaseLength = slidePlatePosYLocked - buttonArmFrontYLocked;
+    buttonArmLength = (buttonArmUnlockedBoxSpace < buttonPressClearance) ?
+        (buttonArmBaseLength - (buttonPressClearance - buttonArmUnlockedBoxSpace)) :
+        buttonArmBaseLength;
+    echo("buttonArmLength", buttonArmLength);
+    
+/*
     // buttonArmLength is the distance from the front edge of the sliding plate to the inner side of the front of the box (not the lid), minus buttonPressClearance, in unlocked position.
-    buttonArmLength = holeGridPosY - lidSideThick - lidSideBoxClearance * 2 - boxTopThick - buttonPressClearance - holeEdgeOffsetY;
+    //buttonArmLength = holeGridPosY - lidSideThick - lidSideBoxClearance * 2 - boxTopThick - buttonPressClearance - holeEdgeOffsetY;
+*/
     translate([slidePlatePosX + slidePlateWidth / 2 - buttonArmWidth / 2 + keywayClearanceX, slidePlatePosYLocked - buttonArmLength, 0])
         cube([buttonArmWidth, buttonArmLength, slidePlateThick]);
     // Button

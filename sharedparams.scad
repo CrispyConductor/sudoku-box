@@ -124,8 +124,8 @@ pinNotchClearance = 0.4;
 prongLengthClearance = 0.25;
 
 // Amount of clearance to leave for pressing the button to unlock the box.
-// ie, the distance the button travels past the point where it unlocks the box.
-buttonPressClearance = 0.5;
+// ie, the min distance the button travels past the point where it unlocks the box.
+buttonPressClearance = 0.35;
 
 // The minimum amount the buttons extends in the unlocked (pushed) position
 buttonMinExtension = 5;

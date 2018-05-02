@@ -47,7 +47,7 @@ boxKeyholeWidth = boxKeywayWidth * 2;
 keyholeClearanceZ = 0.5;
 
 // Clearance to leave between inner sides of lid and outer sides of the top of the box, on each side
-lidSideBoxClearance = 0.85;
+lidSideBoxClearance = 0.5;
 
 // Thickness of the sliding plate
 slidePlateThick = 3;

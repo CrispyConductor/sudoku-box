@@ -90,7 +90,7 @@ slidePlateTopOffset = buttonTopOffset;
 basePlateThick = 3;
 
 // Height of the detent prongs
-detentProngHeight = 1.5;
+detentProngHeight = 1;
 
 // Offset from the top of the base plate to the Z center of the detent prong
 basePlateDetentProngOffsetZ = 15;
@@ -143,7 +143,7 @@ fixedPosKeyWidth = (pinBottomRadius - pinBottomCavityRadius) * 0.8;
 detentPostWidth = pinBottomRadius * 2;
 
 // Depth/thickness of the support post for the detent prongs
-detentPostDepth = 1.8;
+detentPostDepth = 1.5;
 
 // Distance from the detent post to the outside of the pin cylinder (not counting the bit that protrudes inside the cylinder
 detentProngLength = 3.5;

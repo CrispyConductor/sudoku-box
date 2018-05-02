@@ -99,6 +99,38 @@ module pinBaseModule() {
     linear_extrude(detentPostWidth)
     polygon([[0, 0], [chamferSize, 0], [0, chamferSize]]);
     // Detent prong
+    // construct the detent prong as follows:
+    // - create a polygon XY cross section of the prong, including point geometry and chamfers at base (centered along X axis, negative half of the Y axis)
+    // - extrude it along the Z axis
+    // - subtract a 45 degree triangle from the bottom to taper it and make it easier to print
+    prongThick = 0.8; // thickness of prong
+    sideChamferSize = detentProngLength / 8;
+    detentProngTotalHeight = detentProngLength + detentProngHeight;
+    prongPointDepth = 0.4; // length of point of prong that protrudes into pin detent
+    prongTotalLength = detentProngLength + prongPointDepth;
+    translate([0, detentPostPosY, detentPostHeight - detentProngTotalHeight])
+        difference() {
+            linear_extrude(detentProngTotalHeight)
+                polygon([
+                    [-prongThick/2 - sideChamferSize, 0],
+                    [prongThick/2 + sideChamferSize, 0],
+                    [prongThick/2, -sideChamferSize],
+                    [prongThick/2, -detentProngLength],
+                    // point geometry here
+                    [-prongThick/2, -detentProngLength],
+                    [-prongThick/2, -sideChamferSize],
+                ]);
+            rotate([])
+            linear_extrude(prongThick + 2*sideChamferSize)
+            polygon([
+                [0, 0],
+                [0, prongTotalLength],
+                [prongTotalLength, 0]
+            ]);
+        };
+    
+    
+/*
     prongPointDepth = 0.4; // length of point of prong that protrudes into pin detent
     prongThick = 0.8; // thickness of prong
     prongBottomOffset = detentPostHeight - detentProngHeight - detentProngLength - prongPointDepth; // distance from base plate to base of prong arm
@@ -120,4 +152,5 @@ module pinBaseModule() {
         translate([prongThick / 2, detentPostPosY, prongBottomOffset + sideChamferSize])
             linear_extrude(detentPostHeight - prongBottomOffset - sideChamferSize)
                 polygon([[0, 0], [0, -sideChamferSize], [sideChamferSize, 0]]);
+*/
 };

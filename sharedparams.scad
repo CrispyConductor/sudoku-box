@@ -61,7 +61,7 @@ boxInsideClearance = 2;
 innerLidPartsOffset = lidSideThick + lidSideBoxClearance + boxTopThick + boxInsideClearance;
 
 // Radius of the holes in the lid
-topHoleRadius = pinTopRadius + 0.5;
+topHoleRadius = pinTopRadius + 0.3;
 
 // How many holes
 holeGridSizeX = knobGridSizeXY[0];

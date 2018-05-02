@@ -75,7 +75,7 @@ holeGridPosY = (lidSize[1] - (holeGridSizeY - 1) * holeSpacing) / 2;
 pinRotateClearance = 3;
 
 // Amount added to pin bottom diameter to get the diameter of slide plate holes
-slidePlatePinClearance = 0.8;
+slidePlatePinClearance = 0.5;
 
 // Width of border around edges of holes in sliding plate
 slidePlateBorderSize = 8;
@@ -121,7 +121,7 @@ pinNotchWidth = pinBottomRadius * 0.8;
 pinNotchClearance = 0.4;
 
 // Amount of space to leave between pins and prongs in locked state
-prongLengthClearance = 1;
+prongLengthClearance = 0.25;
 
 // Amount of clearance to leave for pressing the button to unlock the box.
 // ie, the distance the button travels past the point where it unlocks the box.

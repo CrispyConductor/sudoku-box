@@ -13,7 +13,7 @@ knobHeight = pinTopHeight - lidTopThick;
 
 knurlStartZ = knobHeight / 2;
 
-module knob() {
+module knob(isFixed=false) {
     difference() {
         union() {
             difference() {
@@ -30,18 +30,20 @@ module knob() {
                 rotate_extrude(angle=notchAngle)
                     square([knobSkirtRadius + 1, knobHeight + 1]);
                 // "knurling"
-                knurlDepth = 0.5;
-                knurlWidth = 0.8;
-                numKnurls = 20;
-                for(ang = [0 : 360 / 30 : 359]) {
-                    rotate([0, 0, ang])
-                        translate([0, 0, knurlStartZ])
-                            linear_extrude(knobHeight - knurlStartZ)
-                                polygon([
-                                    [knobOuterRadius, -(knurlWidth/2)],
-                                    [knobOuterRadius, knurlWidth/2],
-                                    [knobOuterRadius - knurlDepth, 0]]
-                                );
+                if (!isFixed) {
+                    knurlDepth = 0.5;
+                    knurlWidth = 0.8;
+                    numKnurls = 20;
+                    for(ang = [0 : 360 / 30 : 359]) {
+                        rotate([0, 0, ang])
+                            translate([0, 0, knurlStartZ])
+                                linear_extrude(knobHeight - knurlStartZ)
+                                    polygon([
+                                        [knobOuterRadius, -(knurlWidth/2)],
+                                        [knobOuterRadius, knurlWidth/2],
+                                        [knobOuterRadius - knurlDepth, 0]]
+                                    );
+                    }
                 }
             };
             // Inner keys
@@ -71,10 +73,11 @@ howManyKnobs = 9;
 
 gridWidth = ceil(sqrt(howManyKnobs));
 gridSpacing = knobSkirtRadius * 2 + 2;
+isFixed = false;
 
 for(num = [0 : 1 : howManyKnobs-1]) {
     gridX = floor(num / gridWidth);
     gridY = num % gridWidth;
-    translate([gridX * gridSpacing, gridY * gridSpacing, 0]) knob();
+    translate([gridX * gridSpacing, gridY * gridSpacing, 0]) knob(isFixed);
 }
 

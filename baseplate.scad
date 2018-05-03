@@ -31,13 +31,6 @@ difference() {
             cube([slideWidth - sideSlideWidth - cutOutClearance, slideDepth, bottomSlideHeight]);
         translate([slide2PosX, slidePosY, basePlateThick])
             cube([slideWidth - sideSlideWidth - cutOutClearance, slideDepth, bottomSlideHeight]);
-        // "Design by" text
-        translate([basePlatePosX + basePlateWidth/2, basePlatePosY + 1, basePlateThick])
-            linear_extrude(0.3)
-                text(text="Chris Breneman", size=3, halign="center", valign="bottom");
-        translate([basePlatePosX + basePlateWidth/2, basePlatePosY + 4, basePlateThick])
-            linear_extrude(0.3)
-                text(text="Design By", size=3, halign="center", valign="bottom");
     };
     // Cut-outs
     cutOutWidth = postWidth + cutOutClearance;
@@ -62,6 +55,13 @@ difference() {
             0
         ])
             sphere(r=clipBallRadius);
+    // "Design by" text
+    translate([basePlatePosX + basePlateWidth/2, basePlatePosY + 2, basePlateThick - 0.6])
+        linear_extrude(1)
+            text(text="Chris Breneman", size=3, halign="center", valign="bottom");
+    translate([basePlatePosX + basePlateWidth/2, basePlatePosY + 5, basePlateThick - 0.6])
+        linear_extrude(1)
+            text(text="Design By", size=3, halign="center", valign="bottom");
 }
 
 module pinBaseModule() {

@@ -18,7 +18,7 @@ pinTopConeHeight = topRadius / 2;
 
 
 module pin (num, isFixedPosition) {
-    numAngle = (num - 1) * (360 / numPositions);
+    numAngle = num * (360 / numPositions);
 
     union() {
         difference() {
@@ -94,7 +94,7 @@ module pin (num, isFixedPosition) {
                 cylinder(h=pinBottomCavityHeight, r=pinBottomCavityRadius);
             // Number label
             translate([0, 0, notchOffsetZ + notchHeight/2 + bottomHeight/2])
-                writecylinder(str(num), [0, 0, -bottomHeight], bottomRadius - 0.5, bottomHeight, east=numAngle);
+                writecylinder(positionNames[num], [0, 0, -bottomHeight], bottomRadius - 0.5, bottomHeight, east=numAngle);
             // Number marks
             /*markRadius = (bottomRadius - cavityRadius) / 3;
             for (markNum = [0 : num - 1]) {
@@ -126,13 +126,15 @@ module pin (num, isFixedPosition) {
 // How many of each pin
 duplicateCount = 1;
 // How many numbers
-maxNum = 2;
+startNum = 1;
+endNum = 2;
+numNums = endNum - startNum + 1;
 
 includeFixedPins = true;
 includeMovingPins = false;
 numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
 
-gridWidth = ceil(sqrt(duplicateCount * numPinTypes * maxNum));
+gridWidth = ceil(sqrt(duplicateCount * numPinTypes * numNums));
 movingPinSpacing = bottomRadius * 2 + 0.5;
 fixedPinSpacing = bottomRadius * 2 + fixedPinFinExtension * 2 + fixedPinFinWidth;
 gridSpacing = includeFixedPins ? fixedPinSpacing : movingPinSpacing;
@@ -141,8 +143,8 @@ gridSpacing = includeFixedPins ? fixedPinSpacing : movingPinSpacing;
 union() {
     for (setNum = [1 : 1 : duplicateCount]) {
         for(typeNum = [0 : 1 : numPinTypes - 1]) {
-            for(pinNum = [1 : 1 : maxNum]) {
-                gridNum = (setNum - 1) * numPinTypes * maxNum + typeNum * numPinTypes + pinNum - 1;
+            for(pinNum = [startNum : 1 : endNum]) {
+                gridNum = (setNum - 1) * numPinTypes * numNums + typeNum * numPinTypes + pinNum - startNum;
                 gridX = floor(gridNum / gridWidth);
                 gridY = gridNum % gridWidth;
                 isFixed = includeMovingPins ? typeNum : 1;

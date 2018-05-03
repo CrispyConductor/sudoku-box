@@ -32,10 +32,12 @@ difference() {
         translate([slide2PosX, slidePosY, basePlateThick])
             cube([slideWidth - sideSlideWidth - cutOutClearance, slideDepth, bottomSlideHeight]);
         // "Design by" text
-        designByStr = "Design by Chris Breneman";
         translate([basePlatePosX + basePlateWidth/2, basePlatePosY + 1, basePlateThick])
             linear_extrude(0.3)
-                text(text=designByStr, size=2, halign="center", valign="bottom");
+                text(text="Chris Breneman", size=3, halign="center", valign="bottom");
+        translate([basePlatePosX + basePlateWidth/2, basePlatePosY + 4, basePlateThick])
+            linear_extrude(0.3)
+                text(text="Design By", size=3, halign="center", valign="bottom");
     };
     // Cut-outs
     cutOutWidth = postWidth + cutOutClearance;

@@ -14,6 +14,7 @@ notchWidth = pinNotchWidth;
 //detentRadius = 1;
 // distance fin extends from pinS
 fixedPinFinExtension = 1.8;
+pinTopConeHeight = topRadius / 2;
 
 
 module pin (num, isFixedPosition) {
@@ -23,14 +24,23 @@ module pin (num, isFixedPosition) {
         difference() {
             union() {
                 difference() {
-                    // Top/knob portion cylinder.
-                    cylinder(h=topHeight, r=topRadius);
+                    union() {
+                        // Top/knob portion cylinder.
+                        cylinder(h=topHeight, r=topRadius);
+                        // Top cone
+                        translate([0, 0, topHeight])
+                            rotate_extrude()
+                                polygon([[0, 0], [topRadius, 0], [0, pinTopConeHeight]]);
+                    };
                     // Notch in top.
                     translate([0, -0.5, topHeight - 1])
-                        cube([topRadius, 1, 1]);
+                        cube([topRadius, 1, 10]);
                     // Notch in side
                     translate([topRadius - 1, -0.5, lidTopThick])
                         cube([1, 1, topHeight - lidTopThick]);
+                    // Cap off top cone halfway so it's not pointy
+                    translate([0, 0, topHeight + pinTopConeHeight/2])
+                        cylinder(h=pinTopConeHeight, r=topRadius);
                 };
                 // Add bottom cylinder
                 translate([0, 0, -bottomHeight])

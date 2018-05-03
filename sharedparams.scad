@@ -47,7 +47,7 @@ boxKeyholeWidth = boxKeywayWidth * 2;
 keyholeClearanceZ = 1;
 
 // Clearance to leave between inner sides of lid and outer sides of the top of the box, on each side
-lidSideBoxClearance = 0.5;
+lidSideBoxClearance = 0.75;
 
 // Thickness of the sliding plate
 slidePlateThick = 3;
@@ -153,9 +153,6 @@ lidTopMinThick = lidTopThick / 2;
 
 // Number of positions pins can be in
 numPositions = 10;
-
-// Names of each position
-positionNames = [ "?", "1", "2", "3", "4", "5", "6", "7", "8", "9" ];
 
 pinBottomConeHeight = lidTopThick - lidTopMinThick;
 pinBottomConeRadius = pinBottomRadius + 3;

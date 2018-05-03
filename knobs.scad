@@ -41,6 +41,14 @@ module knob() {
                             [knobOuterRadius - knurlDepth, 0]]
                         );
         }
+        // Chamfer on bottom
+        chamferSize = 0.65;
+        rotate_extrude()
+        polygon([
+            [0, 0],
+            [knobInnerRadius + chamferSize, 0],
+            [0, knobInnerRadius + chamferSize]
+        ]);
     };
     // Inner keys
     intersection() {

@@ -42,7 +42,7 @@ union() {
             translate([keywayOffsetX - keywayWidth / 2, 0, keywayOffsetZ])
                 cube([keywayWidth, topThick, topHeight]);
             // Keyhole at bottom of slot
-            translate([keywayOffsetX - keyholeWidth / 2, 0, keywayOffsetZ - keyholeClearanceZ])
+            translate([keywayOffsetX - keyholeWidth / 2, 0, keywayOffsetZ])
                 cube([keyholeWidth, topThick, keyholeHeight]);
         };
     // Brim between top and bottom

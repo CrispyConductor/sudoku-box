@@ -55,4 +55,14 @@ module knob() {
     };
 };
 
-knob();
+howManyKnobs = 9;
+
+gridWidth = ceil(sqrt(howManyKnobs));
+gridSpacing = knobSkirtRadius * 2 + 2;
+
+for(num = [0 : 1 : howManyKnobs-1]) {
+    gridX = floor(num / gridWidth);
+    gridY = num % gridWidth;
+    translate([gridX * gridSpacing, gridY * gridSpacing, 0]) knob();
+}
+

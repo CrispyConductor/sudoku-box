@@ -4,7 +4,7 @@ $fs = 0.5;
 use <Write.scad>
 include <sharedparams.scad>
 
-topHeight = lidTopThick + 10;
+topHeight = pinTopHeight;
 bottomHeightClearance = 0.15;
 bottomHeight = basePlateBaseTopOffset - lidTopThick - bottomHeightClearance;
 slidePlateClearance = 1.5; // Vertical clearance in notch for slide plate prong

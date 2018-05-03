@@ -185,3 +185,5 @@ pinBottomCavityClearance = 0.3;
 clipBallRadius = 1;
 
 fixedPinFinHeight = 5;
+
+pinKnobKeySize = pinTopRadius / 6;

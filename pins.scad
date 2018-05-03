@@ -12,7 +12,7 @@ topRadius = pinTopRadius;
 bottomRadius = pinBottomRadius;
 notchWidth = pinNotchWidth;
 //detentRadius = 1;
-// distance fin extends from pinS
+// distance fin extends from pins
 fixedPinFinExtension = 1.8;
 pinTopConeHeight = topRadius / 2;
 
@@ -41,6 +41,11 @@ module pin (num, isFixedPosition) {
                     // Cap off top cone halfway so it's not pointy
                     translate([0, 0, topHeight + pinTopConeHeight/2])
                         cylinder(h=pinTopConeHeight, r=topRadius);
+                    // Key for knob
+                    translate([0, -(topRadius/2 + (topRadius - pinKnobKeySize)), topHeight/2 + lidTopThick])
+                        cube([topRadius*2, topRadius, topHeight], center=true);
+                    translate([0, (topRadius/2 + (topRadius - pinKnobKeySize)), topHeight/2 + lidTopThick])
+                        cube([topRadius*2, topRadius, topHeight], center=true);
                 };
                 // Add bottom cylinder
                 translate([0, 0, -bottomHeight])

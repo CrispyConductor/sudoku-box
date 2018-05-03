@@ -151,6 +151,9 @@ detentProngLength = 3.5;
 // Minimum thickness of lid
 lidTopMinThick = lidTopThick / 2;
 
+// Number of positions pins can be in
+numPositions = 10;
+
 pinBottomConeHeight = lidTopThick - lidTopMinThick;
 pinBottomConeRadius = pinBottomRadius + 3;
 

@@ -18,7 +18,7 @@ pinTopConeHeight = topRadius / 2;
 
 
 module pin (num, isFixedPosition) {
-    numAngle = (num - 1) * (360 / 9);
+    numAngle = (num - 1) * (360 / numPositions);
 
     union() {
         difference() {
@@ -75,7 +75,7 @@ module pin (num, isFixedPosition) {
             //detentHeight = basePlateDetentProngOffsetZ + detentProngHeight / 2 + 1.5;
             detentExtraClearanceZ = 1;
             detentHeight = detentProngHeight + 2 * detentExtraClearanceZ;
-            for(ang = [0 : 360 / 9 : 359]) {
+            for(ang = [0 : 360 / numPositions : 359]) {
                 rotate([0, 0, ang])
                     translate([0, 0, -bottomHeight + basePlateDetentProngOffsetZ - detentHeight / 2])
                         linear_extrude(detentHeight)

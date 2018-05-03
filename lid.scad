@@ -17,8 +17,8 @@ buttonSlotTopOffset = buttonTopOffset - lidButtonSlotClearanceZ; // from top of 
 echo("buttonSlotTopOffset", buttonSlotTopOffset);
 
 numberFontSize = 2.5;
-numLabelStart = 1;
-numLabelEnd = numPositions;
+numLabelStart = 0;
+numLabelEnd = numPositions - 1;
 
 //slidePlateWidth = lidWidth - 2 * (innerLidPartsOffset + slideWidth / 2);
 echo("slidePlateWidth", slidePlateWidth);
@@ -65,7 +65,7 @@ union() {
             center = [holeX * holeSpacing + holeGridPosX, holeY * holeSpacing + holeGridPosY, lidHeight + 0.5 - numberLabelTextOffsetZ];
             for (num = [numLabelStart : numLabelEnd]) {
                 numAng = (360 / (numLabelEnd - numLabelStart + 1)) * (num - numLabelStart);
-                numStr = (num == 1) ? "?" : str(num - 1);
+                numStr = positionNames[num];
                 // uncomment to enable number labels
                 translate(center) writecircle(numStr, [0, 0, 0], holeRadius + numberFontSize / 2 + holeRadius * 0.1, h=numberFontSize, rotate=numAng);
             }

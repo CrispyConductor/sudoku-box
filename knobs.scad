@@ -3,7 +3,7 @@ include <sharedparams.scad>
 $fa = 3;
 $fs = 0.5;
 
-notchAngle = 360 / numPositions;
+notchAngle = 360 / numPositions * 1.15;
 
 knobOuterRadius = pinTopRadius + 1.25;
 knobInnerRadius = pinTopRadius - 0.05;

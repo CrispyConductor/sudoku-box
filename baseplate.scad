@@ -108,7 +108,7 @@ module pinBaseModule() {
     prongThick = 0.8; // thickness of prong
     sideChamferSize = detentProngLength / 8;
     detentProngTotalHeight = detentProngLength + detentProngHeight;
-    prongPointDepth = 0.55; // length of point of prong that protrudes into pin detent
+    prongPointDepth = 0.6; // length of point of prong that protrudes into pin detent
     prongPointWidth = prongThick / 3;
     prongTotalLength = detentProngLength + prongPointDepth;
     translate([0, detentPostPosY, detentPostHeight - detentProngTotalHeight])

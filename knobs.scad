@@ -7,9 +7,11 @@ notchAngle = 360 / numPositions;
 
 knobOuterRadius = pinTopRadius + 1;
 knobInnerRadius = pinTopRadius - 0.1;
+knobTaperBottomRadius = pinTopRadius + 0.2;
 knobSkirtRadius = holeSpacing/2 - 1;
 knobSkirtHeight = 1;
 knobHeight = pinTopHeight - lidTopThick;
+knobTaperHeight = knobHeight * 0.65;
 
 knurlStartZ = knobHeight / 2;
 
@@ -22,6 +24,15 @@ module knob(isFixed=false) {
                     cylinder(h=knobHeight, r=knobOuterRadius);
                     // Skirt
                     cylinder(h=knobSkirtHeight, r=knobSkirtRadius);
+                    // Fillet
+                    filletSize = (knobOuterRadius - knobInnerRadius) / 3;
+                    translate([0, 0, knobSkirtHeight])
+                    rotate_extrude()
+                    polygon([
+                        [knobOuterRadius, 0],
+                        [knobOuterRadius + filletSize, 0],
+                        [knobOuterRadius, filletSize]
+                    ]);
                 };
                 // Inner cutout
                 cylinder(h=knobHeight, r=knobInnerRadius);
@@ -59,12 +70,21 @@ module knob(isFixed=false) {
             };
         };
         // Chamfer on bottom
-        chamferSize = 0.65;
+        bottomChamferSize = 0.65;
         rotate_extrude()
             polygon([
                 [0, 0],
-                [knobInnerRadius + chamferSize, 0],
-                [0, knobInnerRadius + chamferSize]
+                [knobInnerRadius + bottomChamferSize, 0],
+                [0, knobInnerRadius + bottomChamferSize]
+            ]);
+        // Inner taper
+        taperTopRadius = knobInnerRadius - pinKnobKeySize;
+        rotate_extrude()
+            polygon([
+                [0, 0],
+                [knobTaperBottomRadius, 0],
+                [taperTopRadius, knobTaperHeight],
+                [0, knobTaperHeight]
             ]);
     };
 };

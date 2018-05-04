@@ -42,7 +42,7 @@ module pin (num, isFixedPosition) {
                     translate([0, 0, topHeight + pinTopConeHeight/2])
                         cylinder(h=pinTopConeHeight, r=topRadius);
                     // Key for knob
-                    knobKeyExtraZOffset = 1;
+                    knobKeyExtraZOffset = 0;
                     translate([0, -(topRadius/2 + (topRadius - pinKnobKeySize)), topHeight/2 + lidTopThick + knobKeyExtraZOffset])
                         cube([topRadius*2, topRadius, topHeight], center=true);
                     translate([0, (topRadius/2 + (topRadius - pinKnobKeySize)), topHeight/2 + lidTopThick + knobKeyExtraZOffset])

@@ -5,13 +5,15 @@ $fs = 0.5;
 
 notchAngle = 360 / numPositions;
 
-knobOuterRadius = pinTopRadius + 1;
-knobInnerRadius = pinTopRadius - 0.1;
-knobTaperBottomRadius = pinTopRadius + 0.2;
+knobOuterRadius = pinTopRadius + 1.25;
+knobInnerRadius = pinTopRadius - 0.05;
+knobSlidingRadius = pinTopRadius + 0.25;
 knobSkirtRadius = holeSpacing/2 - 1;
 knobSkirtHeight = 1;
 knobHeight = pinTopHeight - lidTopThick;
-knobTaperHeight = knobHeight * 0.65;
+
+clampingAreaHeight = 1;
+taperHeight = 1;
 
 knurlStartZ = knobHeight / 2;
 
@@ -45,7 +47,7 @@ module knob(isFixed=false) {
                     knurlDepth = 0.5;
                     knurlWidth = 0.8;
                     numKnurls = 20;
-                    for(ang = [0 : 360 / 30 : 359]) {
+                    for(ang = [0 : 360 / numKnurls : 359]) {
                         rotate([0, 0, ang])
                             translate([0, 0, knurlStartZ])
                                 linear_extrude(knobHeight - knurlStartZ)
@@ -77,19 +79,23 @@ module knob(isFixed=false) {
                 [knobInnerRadius + bottomChamferSize, 0],
                 [0, knobInnerRadius + bottomChamferSize]
             ]);
+        // Inner cutout for sliding fit
+        cylinder(h=knobHeight-clampingAreaHeight-taperHeight, r=knobSlidingRadius);
         // Inner taper
         taperTopRadius = knobInnerRadius - pinKnobKeySize;
+        taperBottomRadius = knobSlidingRadius;
+        translate([0, 0, knobHeight-clampingAreaHeight-taperHeight])
         rotate_extrude()
             polygon([
                 [0, 0],
-                [knobTaperBottomRadius, 0],
-                [taperTopRadius, knobTaperHeight],
-                [0, knobTaperHeight]
+                [taperBottomRadius, 0],
+                [taperTopRadius, taperHeight],
+                [0, taperHeight]
             ]);
     };
 };
 
-howManyKnobs = 9;
+howManyKnobs = 1;
 
 gridWidth = ceil(sqrt(howManyKnobs));
 gridSpacing = knobSkirtRadius * 2 + 2;

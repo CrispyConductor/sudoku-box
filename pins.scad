@@ -5,8 +5,9 @@ use <Write.scad>
 include <sharedparams.scad>
 
 topHeight = pinTopHeight;
-bottomHeightClearance = 0.15;
-bottomHeight = basePlateBaseTopOffset - lidTopThick - bottomHeightClearance;
+bottomHeightClearance = 0.5;
+bottomHeight = basePlateBaseTopOffset - lidTopThick;
+realBottomHeight = bottomHeight - bottomHeightClearance;
 slidePlateClearance = 1.5; // Vertical clearance in notch for slide plate prong
 topRadius = pinTopRadius;
 bottomRadius = pinBottomRadius;
@@ -49,8 +50,8 @@ module pin (num, isFixedPosition) {
                         cube([topRadius*2, topRadius, topHeight], center=true);
                 };
                 // Add bottom cylinder
-                translate([0, 0, -bottomHeight])
-                    cylinder(h=bottomHeight, r=bottomRadius);
+                translate([0, 0, -realBottomHeight])
+                    cylinder(h=realBottomHeight, r=bottomRadius);
                 // Add bottom cone
                 intersection() {
                     rotate_extrude()
@@ -107,8 +108,8 @@ module pin (num, isFixedPosition) {
             difference() {
                 for (i = [-45:90:45])
                     rotate([0, 0, numAngle + i])
-                        translate([-fixedPinFinWidth/2, -bottomRadius - fixedPinFinExtension, -bottomHeight])
-                            cube([fixedPinFinWidth, bottomRadius * 2 + fixedPinFinExtension * 2, fixedPinFinHeight]);
+                        translate([-fixedPinFinWidth/2, -bottomRadius - fixedPinFinExtension, -realBottomHeight])
+                            cube([fixedPinFinWidth, bottomRadius * 2 + fixedPinFinExtension * 2, fixedPinFinHeight - (bottomHeight - realBottomHeight)]);
                 translate([0, 0, -bottomHeight])
                     cylinder(h=pinBottomCavityHeight, r=pinBottomCavityRadius);
             };

@@ -5,9 +5,6 @@ use <Write.scad>
 include <sharedparams.scad>
 
 topHeight = pinTopHeight;
-bottomHeightClearance = 0.5;
-bottomHeight = basePlateBaseTopOffset - lidTopThick;
-realBottomHeight = bottomHeight - bottomHeightClearance;
 slidePlateClearance = 1.5; // Vertical clearance in notch for slide plate prong
 topRadius = pinTopRadius;
 bottomRadius = pinBottomRadius;
@@ -19,8 +16,16 @@ pinTopConeHeight = topRadius / 2;
 
 
 module pin (num, isFixedPosition) {
+    bottomHeightClearanceFixed = 0.1;
+    bottomHeightClearanceMoving = 0.4;
+    bottomHeightClearance = isFixedPosition ? bottomHeightClearanceFixed : bottomHeightClearanceMoving;
+    bottomHeight = basePlateBaseTopOffset - lidTopThick;
+    realBottomHeight = bottomHeight - bottomHeightClearance;
+    
+    
     numAngle = num * (360 / numPositions);
 
+    translate([0, 0, -bottomHeightClearance])
     union() {
         difference() {
             union() {

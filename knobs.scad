@@ -95,7 +95,7 @@ module knob(isFixed=false) {
     };
 };
 
-howManyKnobs = 1;
+howManyKnobs = 9;
 
 gridWidth = ceil(sqrt(howManyKnobs));
 gridSpacing = knobSkirtRadius * 2 + 2;

@@ -133,11 +133,11 @@ module pin (num, isFixedPosition) {
 duplicateCount = 1;
 // How many numbers
 startNum = 1;
-endNum = 2;
+endNum = 9;
 numNums = endNum - startNum + 1;
 
-includeFixedPins = true;
-includeMovingPins = false;
+includeFixedPins = false;
+includeMovingPins = true;
 numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
 
 gridWidth = ceil(sqrt(duplicateCount * numPinTypes * numNums));

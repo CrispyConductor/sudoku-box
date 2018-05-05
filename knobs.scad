@@ -8,7 +8,7 @@ notchAngle = 360 / numPositions * 1.15;
 knobOuterRadius = pinTopRadius + 1.25;
 knobInnerRadius = pinTopRadius - 0.05;
 knobSlidingRadius = pinTopRadius + 0.25;
-knobSkirtRadius = holeSpacing/2 - 1;
+knobSkirtRadius = holeSpacing/2 - 0.5;
 knobSkirtHeight = 1;
 knobHeight = pinTopHeight - lidTopThick;
 
@@ -98,7 +98,7 @@ module knob(isFixed=false) {
 howManyKnobs = 9;
 
 gridWidth = ceil(sqrt(howManyKnobs));
-gridSpacing = knobSkirtRadius * 2 + 2;
+gridSpacing = holeSpacing;
 isFixed = false;
 
 for(num = [0 : 1 : howManyKnobs-1]) {

@@ -195,4 +195,4 @@ fixedPinFinHeight = 5;
 // Height of the narrow part of the pins
 pinTopHeight = lidTopThick + 10;
 
-pinKnobKeySize = pinTopRadius / 6;
+pinKnobKeySize = pinTopRadius / 4;

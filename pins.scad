@@ -39,11 +39,13 @@ module pin (num, isFixedPosition) {
                                 polygon([[0, 0], [topRadius, 0], [0, pinTopConeHeight]]);
                     };
                     // Notch in top.
-                    translate([0, -0.5, topHeight - 1])
-                        cube([topRadius, 1, 10]);
+                    topLabelNotchWidth = 0.5;
+                    translate([0, -topLabelNotchWidth/2, topHeight - 1])
+                        cube([topRadius, topLabelNotchWidth, 10]);
                     // Notch in side
-                    translate([topRadius - 1, -0.5, lidTopThick])
-                        cube([1, 1, topHeight - lidTopThick]);
+                    sideLabelNotchWidth = 0.5;
+                    translate([topRadius - 1, -sideLabelNotchWidth/2, lidTopThick])
+                        cube([1, sideLabelNotchWidth, topHeight - lidTopThick]);
                     // Cap off top cone halfway so it's not pointy
                     translate([0, 0, topHeight + pinTopConeHeight/2])
                         cylinder(h=pinTopConeHeight, r=topRadius);

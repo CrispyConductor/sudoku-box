@@ -10,7 +10,7 @@ clipHeight = fastenerSlotThroat;
 clipDepth = postDepth;
 ballRadius = clipBallRadius;
 //chamfer = clipDepth / 8;
-chamfer = 0;
+chamfer = 1;
 
 module clip() {
     difference() {
@@ -22,10 +22,27 @@ module clip() {
                 [clipBottomLength - clipHeight, clipHeight],
                 [clipHeight, clipHeight]
             ]);
-        // Chamfer on one side
-        translate([clipBottomLength/2, 0, clipDepth])
-            rotate([45, 0, 0])
-                cube([clipBottomLength, chamfer, chamfer], center=true);
+        // Chamfers
+        for (chamferZ = [0, clipDepth]) {
+            // bottom and top edge
+            for (chamferY = [0, clipHeight])
+                translate([clipBottomLength/2, chamferY, chamferZ])
+                    rotate([45, 0, 0])
+                        cube([clipBottomLength, chamfer, chamfer], center=true);
+            // left edge
+            translate([0, 0, chamferZ])
+                rotate([45, 0, 45])
+                    cube([clipBottomLength * 2, chamfer, chamfer], center=true);
+            // right edge
+            translate([clipBottomLength, 0, chamferZ])
+                rotate([45, 0, -45])
+                    cube([clipBottomLength * 2, chamfer, chamfer], center=true);
+            // front and back edge
+            for (chamferX = [0, clipBottomLength])
+                translate([chamferX, 0, 0])
+                        rotate([0, 0, 45])
+                            cube([chamfer, chamfer, clipDepth * 2], center=true);
+        }
     };
     // Half sphere in bottom
     translate([clipBottomLength / 2, 0, clipDepth / 2])

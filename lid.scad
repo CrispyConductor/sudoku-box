@@ -173,16 +173,25 @@ module basePlatePost(postSize, cutOutPegDepth, plateThick, fastenerSlotThroat) {
     translate([0, locatingPegOffsetY, postSize[2]])
         cube([postSize[0], cutOutPegDepth, plateThick]);
     // Fastener clip
-    //reinforcementHeight = fastenerSlotThroat / 3;
-    reinforcementHeight = 0.4;
-    translate([0, locatingPegOffsetY, postSize[2] + plateThick])
-        difference() {
-            cube([postSize[0], cutOutPegDepth, fastenerSlotThroat + reinforcementHeight]);
-            translate([postSize[0] - fastenerSlotThroat, postSize[1], 0])
-                rotate([90, 0, 0])
-                    linear_extrude(postSize[1])
-                        polygon([[0, 0], [fastenerSlotThroat * 2, 0], [fastenerSlotThroat * 2, fastenerSlotThroat * 2]]);
-        };
+    module fastenerClip() {
+        reinforcementHeight = 0.4;
+        translate([0, locatingPegOffsetY, postSize[2] + plateThick])
+            difference() {
+                cube([postSize[0], cutOutPegDepth, fastenerSlotThroat + reinforcementHeight]);
+                translate([postSize[0] - fastenerSlotThroat, postSize[1], 0])
+                    rotate([90, 0, 0])
+                        linear_extrude(postSize[1])
+                            polygon([
+                                [0, 0],
+                                [fastenerSlotThroat * 2, 0],
+                                [fastenerSlotThroat * 2, fastenerSlotThroat * 2]
+                            ]);
+            };
+    };
+    // This is a hack to try to force better "infill" in this section by splitting it into "slices".
+    difference() {
+        fastenerClip();
+    };
 };
 
 //!basePlatePost([10, 20, 40], 8, 3, 7);

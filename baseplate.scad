@@ -55,13 +55,6 @@ difference() {
             0
         ])
             sphere(r=clipBallRadius);
-    // "Design by" text
-    translate([basePlatePosX + basePlateWidth/2, basePlatePosY + 2, basePlateThick - 0.6])
-        linear_extrude(1)
-            text(text="Chris Breneman", size=3, halign="center", valign="bottom");
-    translate([basePlatePosX + basePlateWidth/2, basePlatePosY + 5, basePlateThick - 0.6])
-        linear_extrude(1)
-            text(text="Design By", size=3, halign="center", valign="bottom");
 }
 
 module pinBaseModule() {

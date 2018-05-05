@@ -29,6 +29,15 @@ union() {
         // Cavity
         translate([bottomThick, bottomThick, bottomThick])
             cube([bottomWidth - bottomThick * 2, bottomDepth - bottomThick * 2, bottomHeight - bottomThick + 10]);
+        // "Design by" text
+        translate([3, 6, 0])
+            mirror([0, 1, 0])
+                linear_extrude(min(bottomThick / 2, 0.3))
+                    text(text="Design by", size=3, halign="left", valign="bottom");
+        translate([3, 11, 0])
+            mirror([0, 1, 0])
+                linear_extrude(min(bottomThick / 2, 0.3))
+                    text(text="Crispy Breneman", size=3, halign="left", valign="bottom");
     };
     // Top shell
     translate([(bottomWidth - topWidth) / 2, (bottomDepth - topDepth) / 2, bottomHeight])

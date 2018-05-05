@@ -155,7 +155,7 @@ lidTopMinThick = lidTopThick / 2;
 numPositions = 10;
 
 // Names of each position
-positionNames = [ "?", "1", "2", "3", "4", "5", "6", "7", "8", "9" ];
+positionNames = [ " ", "1", "2", "3", "4", "5", "6", "7", "8", "9" ];
 
 pinBottomConeHeight = lidTopThick - lidTopMinThick;
 pinBottomConeRadius = pinBottomRadius + 3;

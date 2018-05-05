@@ -16,7 +16,8 @@ buttonSlotHeight = slidePlateThick + lidButtonSlotClearanceZ * 2;
 buttonSlotTopOffset = buttonTopOffset - lidButtonSlotClearanceZ; // from top of lid to top of button slot
 echo("buttonSlotTopOffset", buttonSlotTopOffset);
 
-numberFontSize = 2.5;
+numberFontSize = 2.9;
+numLabelHoleOffset = 0.5;
 numLabelStart = 0;
 numLabelEnd = numPositions - 1;
 
@@ -67,7 +68,7 @@ union() {
                 numAng = (360 / (numLabelEnd - numLabelStart + 1)) * (num - numLabelStart);
                 numStr = positionNames[num];
                 // uncomment to enable number labels
-                translate(center) writecircle(numStr, [0, 0, 0], holeRadius + numberFontSize / 2 + holeRadius * 0.1, h=numberFontSize, rotate=numAng);
+                translate(center) writecircle(numStr, [0, 0, 0], holeRadius + numberFontSize / 2 + numLabelHoleOffset, h=numberFontSize, rotate=numAng);
             }
         }
     };

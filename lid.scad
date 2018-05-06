@@ -176,24 +176,24 @@ module basePlatePost(postSize, cutOutPegDepth, plateThick, fastenerSlotThroat) {
     module fastenerClip() {
         reinforcementHeight = 0.4;
         translate([0, locatingPegOffsetY, postSize[2] + plateThick])
-            !sliceForBetterInfill([postSize[0], cutOutPegDepth, fastenerSlotThroat + reinforcementHeight])
-            difference() {
-                cube([postSize[0], cutOutPegDepth, fastenerSlotThroat + reinforcementHeight]);
-                translate([postSize[0] - fastenerSlotThroat, postSize[1], 0])
-                    rotate([90, 0, 0])
-                        linear_extrude(postSize[1])
-                            polygon([
-                                [0, 0],
-                                [fastenerSlotThroat * 2, 0],
-                                [fastenerSlotThroat * 2, fastenerSlotThroat * 2]
-                            ]);
-            };
+            sliceForBetterInfill([postSize[0] - fastenerSlotThroat, cutOutPegDepth, fastenerSlotThroat + reinforcementHeight])
+                difference() {
+                    cube([postSize[0], cutOutPegDepth, fastenerSlotThroat + reinforcementHeight]);
+                    translate([postSize[0] - fastenerSlotThroat, postSize[1], 0])
+                        rotate([90, 0, 0])
+                            linear_extrude(postSize[1])
+                                polygon([
+                                    [0, 0],
+                                    [fastenerSlotThroat * 2, 0],
+                                    [fastenerSlotThroat * 2, fastenerSlotThroat * 2]
+                                ]);
+                };
     };
     fastenerClip();
 };
 
 // This is a hack to try to force better "infill" in this section by splitting it into "slices".
-module sliceForBetterInfill(size, topBottomFaceThick=0.5, sideFaceThick=0.5, horizSliceThick=0.5, horizSliceGap=0.1, vertSliceThick=0.3, vertSliceGap=0.1) {
+module sliceForBetterInfill(size, topBottomFaceThick=1, sideFaceThick=1, horizSliceThick=0.5, horizSliceGap=0.25, vertSliceThick=0.5, vertSliceGap=0.2) {
     // top face
     intersection() {
         children();
@@ -219,7 +219,11 @@ module sliceForBetterInfill(size, topBottomFaceThick=0.5, sideFaceThick=0.5, hor
         children();
         translate([0, -size[1] + sideFaceThick, 0]) cube(size);
     };
-    
+    // back face
+    intersection() {
+        children();
+        translate([0, size[1] - sideFaceThick, 0]) cube(size);
+    };
     // y slices
     for (y = [sideFaceThick + horizSliceGap : horizSliceThick + horizSliceGap : size[1] - sideFaceThick])
         intersection() {
@@ -232,6 +236,11 @@ module sliceForBetterInfill(size, topBottomFaceThick=0.5, sideFaceThick=0.5, hor
             children();
             translate([0, 0, z]) cube([size[0], size[1], vertSliceThick]);
         };
+    // remainder of object
+    difference() {
+        children();
+        cube(size);
+    };
 };
 
 //!basePlatePost([10, 20, 40], 8, 3, 7);

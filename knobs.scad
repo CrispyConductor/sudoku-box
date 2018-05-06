@@ -12,7 +12,7 @@ knobSkirtRadius = holeSpacing/2 - 0.5;
 knobSkirtHeight = 1;
 knobHeight = pinTopHeight - lidTopThick;
 
-clampingAreaHeight = 1;
+clampingAreaHeight = 1.5;
 taperHeight = 1;
 
 knurlStartZ = knobHeight / 2;

@@ -17,7 +17,7 @@ pinTopConeHeight = topRadius / 2;
 
 module pin (num, isFixedPosition) {
     bottomHeightClearanceFixed = 0.1;
-    bottomHeightClearanceMoving = 0.4;
+    bottomHeightClearanceMoving = 0.5;
     bottomHeightClearance = isFixedPosition ? bottomHeightClearanceFixed : bottomHeightClearanceMoving;
     bottomHeight = basePlateBaseTopOffset - lidTopThick;
     realBottomHeight = bottomHeight - bottomHeightClearance;

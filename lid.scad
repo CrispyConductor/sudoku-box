@@ -176,6 +176,7 @@ module basePlatePost(postSize, cutOutPegDepth, plateThick, fastenerSlotThroat) {
     module fastenerClip() {
         reinforcementHeight = 0.4;
         translate([0, locatingPegOffsetY, postSize[2] + plateThick])
+            !sliceForBetterInfill([postSize[0], cutOutPegDepth, fastenerSlotThroat + reinforcementHeight])
             difference() {
                 cube([postSize[0], cutOutPegDepth, fastenerSlotThroat + reinforcementHeight]);
                 translate([postSize[0] - fastenerSlotThroat, postSize[1], 0])
@@ -188,10 +189,49 @@ module basePlatePost(postSize, cutOutPegDepth, plateThick, fastenerSlotThroat) {
                             ]);
             };
     };
-    // This is a hack to try to force better "infill" in this section by splitting it into "slices".
-    difference() {
-        fastenerClip();
+    fastenerClip();
+};
+
+// This is a hack to try to force better "infill" in this section by splitting it into "slices".
+module sliceForBetterInfill(size, topBottomFaceThick=0.5, sideFaceThick=0.5, horizSliceThick=0.5, horizSliceGap=0.1, vertSliceThick=0.3, vertSliceGap=0.1) {
+    // top face
+    intersection() {
+        children();
+        translate([0, 0, size[2] - topBottomFaceThick]) cube(size);
     };
+    // bottom face
+    intersection() {
+        children();
+        translate([0, 0, -size[2] + topBottomFaceThick]) cube(size);
+    };
+    // left face
+    intersection() {
+        children();
+        translate([-size[0] + sideFaceThick, 0, 0]) cube(size);
+    };
+    // right face
+    intersection() {
+        children();
+        translate([size[0] - sideFaceThick, 0, 0]) cube(size);
+    };
+    // front face
+    intersection() {
+        children();
+        translate([0, -size[1] + sideFaceThick, 0]) cube(size);
+    };
+    
+    // y slices
+    for (y = [sideFaceThick + horizSliceGap : horizSliceThick + horizSliceGap : size[1] - sideFaceThick])
+        intersection() {
+            children();
+            translate([0, y, 0]) cube([size[0], horizSliceThick, size[2]]);
+        };
+    // z slices
+    for (z = [topBottomFaceThick + vertSliceGap : vertSliceThick + vertSliceGap : size[2] - topBottomFaceThick])
+        intersection() {
+            children();
+            translate([0, 0, z]) cube([size[0], size[1], vertSliceThick]);
+        };
 };
 
 //!basePlatePost([10, 20, 40], 8, 3, 7);

@@ -17,7 +17,7 @@ pinTopConeHeight = topRadius / 2;
 
 module pin (num, isFixedPosition) {
     bottomHeightClearanceFixed = 0.1;
-    bottomHeightClearanceMoving = 0.5;
+    bottomHeightClearanceMoving = 0.4;
     bottomHeightClearance = isFixedPosition ? bottomHeightClearanceFixed : bottomHeightClearanceMoving;
     bottomHeight = basePlateBaseTopOffset - lidTopThick;
     realBottomHeight = bottomHeight - bottomHeightClearance;
@@ -99,7 +99,7 @@ module pin (num, isFixedPosition) {
             }*/
             // Bottom cavity
             translate([0, 0, -bottomHeight])
-                cylinder(h=pinBottomCavityHeight, r=pinBottomCavityRadius);
+                cylinder(h=pinBottomCavityHeight+bottomHeightClearance, r=pinBottomCavityRadius);
             // Number label
             translate([0, 0, notchOffsetZ + notchHeight/2 + bottomHeight/2])
                 writecylinder(positionNames[num], [0, 0, -bottomHeight], bottomRadius - 0.5, bottomHeight, east=numAngle);

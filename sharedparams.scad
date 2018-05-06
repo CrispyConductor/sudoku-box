@@ -1,14 +1,14 @@
 include <mainparams.scad>
 
 // Radius of the top section of the pins
-pinTopRadius = knobDiameter / 2;
+pinTopRadius = main_knobDiameter / 2;
 
 // Radius of the top section of the pins
 pinBottomRadius = pinTopRadius + 1.125;
 
 // Distance between centers of holes
 minHoleSpacing = pinBottomRadius * 4;
-holeSpacing = max(minHoleSpacing, knobSpacing);
+holeSpacing = max(minHoleSpacing, main_knobSpacing);
 
 // Thickness of the top surface of the lid.
 lidTopThick = 4;
@@ -64,8 +64,8 @@ innerLidPartsOffset = lidSideThick + lidSideBoxClearance + boxTopThick + boxInsi
 topHoleRadius = pinTopRadius + 0.3;
 
 // How many holes
-holeGridSizeX = knobGridSizeXY[0];
-holeGridSizeY = knobGridSizeXY[1];
+holeGridSizeX = main_knobGridSizeXY[0];
+holeGridSizeY = main_knobGridSizeXY[1];
 
 // The offset from the XY origin of the lid to the center of the nearest hole
 holeGridPosX = (lidSize[0] - (holeGridSizeX - 1) * holeSpacing) / 2;

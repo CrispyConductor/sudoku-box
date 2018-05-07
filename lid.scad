@@ -11,6 +11,8 @@ lidHeight = lidSize[2];
 
 holeRadius = topHoleRadius;
 
+showSudokuLines = true;
+
 buttonSlotWidth = boxKeywayWidth;
 buttonSlotHeight = slidePlateThick + lidButtonSlotClearanceZ * 2;
 buttonSlotTopOffset = buttonTopOffset - lidButtonSlotClearanceZ; // from top of lid to top of button slot
@@ -70,6 +72,11 @@ union() {
                 // uncomment to enable number labels
                 translate(center) writecircle(numStr, [0, 0, 0], holeRadius + numberFontSize / 2 + numLabelHoleOffset, h=numberFontSize, rotate=numAng);
             }
+        }
+        
+        // Sudoku lines
+        if (showSudokuLines) {
+            sudokuLines();
         }
     };
     // Slides
@@ -244,4 +251,26 @@ module sliceForBetterInfill(size, topBottomFaceThick=1, sideFaceThick=1, horizSl
 };
 
 //!basePlatePost([10, 20, 40], 8, 3, 7);
+
+module sudokuLines() {
+    lineWidth = 0.5;
+    lineSizeZ = 0.5;
+    lineGapSize = holeSpacing / 1.5;
+    module sudokuLine(length) {
+        translate([length/2, 0, lidHeight - lineSizeZ/2])
+            difference() {
+                cube([length, lineWidth, lineSizeZ], center=true);
+                for (gapX = [-4*holeSpacing : holeSpacing : 4*holeSpacing])
+                    translate([gapX, 0, 0])
+                        cube([lineGapSize, lineWidth, lineSizeZ], center=true);
+            };
+    };
+    for (lineY = [holeGridPosY-holeSpacing/2 : holeSpacing*3 : holeGridPosY+8.5*holeSpacing] )
+        translate([holeGridPosX - holeSpacing/2, lineY, 0])
+            sudokuLine(holeSpacing * 9);
+    for (lineX = [holeGridPosX-holeSpacing/2 : holeSpacing*3 : holeGridPosX+8.5*holeSpacing])
+        translate([lineX, holeGridPosY - holeSpacing/2, 0])
+            rotate([0, 0, 90])
+                sudokuLine(holeSpacing * 9);
+};
 

@@ -11,7 +11,7 @@ lidHeight = lidSize[2];
 
 holeRadius = topHoleRadius;
 
-showSudokuLines = true;
+showSudokuLines = false;
 
 buttonSlotWidth = boxKeywayWidth;
 buttonSlotHeight = slidePlateThick + lidButtonSlotClearanceZ * 2;

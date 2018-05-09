@@ -95,7 +95,7 @@ module knob(isFixed=false) {
     };
 };
 
-howManyKnobs = 9;
+howManyKnobs = 81;
 
 gridWidth = ceil(sqrt(howManyKnobs));
 gridSpacing = holeSpacing;

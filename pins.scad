@@ -132,7 +132,7 @@ module pin (num, isFixedPosition) {
 }
 
 // How many of each pin
-duplicateCount = 1;
+duplicateCount = 9;
 // How many numbers
 startNum = 1;
 endNum = 9;

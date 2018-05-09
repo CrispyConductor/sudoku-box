@@ -3,7 +3,7 @@ include <sharedparams.scad>
 $fa = 3;
 $fs = 0.5;
 
-clipBottomLengthClearance = 0.25;
+clipBottomLengthClearance = 0;
 clipBottomLength = slide2PosX - slide1PosX + slideWidth - (postWidth - fastenerSlotThroat) * 2 - clipBottomLengthClearance;
 clipHeight = fastenerSlotThroat;
 //clipDepth = fastenerPegDepth;

@@ -48,9 +48,11 @@ difference() {
     translate([basePlatePosX + basePlateWidth - cutOutWidth, slidePosY + (postDepth - fastenerPegDepth) / 2 - cutOutClearance + slideDepth - postDepth, 0])
         cube([cutOutWidth, cutOutDepth, basePlateThick]);
     // Clip ball indents
+    clipBallX = basePlatePosX + basePlateWidth / 2;
     for (i = [0 : 2])
+        for (x = [clipBallX - clipBallSpacing, clipBallX, clipBallX + clipBallSpacing])
         translate([
-            basePlatePosX + basePlateWidth / 2,
+            x,
             slidePosY + postDepth / 2 + i * (-postDepth / 2 + slideDepth / 2),
             0
         ])

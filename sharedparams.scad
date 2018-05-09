@@ -196,3 +196,5 @@ fixedPinFinHeight = 5;
 pinTopHeight = lidTopThick + 10;
 
 pinKnobKeySize = pinTopRadius / 4;
+
+clipBallSpacing = (slide2PosX - slide1PosX + slideWidth) / 7.3;

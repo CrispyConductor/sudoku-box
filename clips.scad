@@ -45,8 +45,9 @@ module clip() {
         }
     };
     // Half sphere in bottom
-    translate([clipBottomLength / 2, 0, clipDepth / 2])
-        sphere(r=ballRadius);
+    for (x = [ clipBottomLength/2-clipBallSpacing, clipBottomLength/2, clipBottomLength/2+clipBallSpacing ])
+        translate([x, 0, clipDepth / 2])
+            sphere(r=ballRadius);
 };
 
 numClips = 3;

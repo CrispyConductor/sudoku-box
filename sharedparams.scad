@@ -188,7 +188,7 @@ fastenerSlotThroat = postWidth * 0.65;
 
 pinBottomCavityClearance = 0.3;
 
-clipBallRadius = 1;
+clipBallRadius = 1.3;
 
 fixedPinFinHeight = 5;
 

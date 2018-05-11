@@ -15,11 +15,17 @@ fixedPinFinExtension = 1.8;
 pinTopConeHeight = topRadius / 2;
 
 
+detentExtraClearanceZ = 1;
+detentHeight = detentProngHeight + 2 * detentExtraClearanceZ;
+bottomHeight = basePlateBaseTopOffset - lidTopThick;
+
+notchHeight = slidePlateThick + slidePlateClearance * 2 + slidePlateVerticalClearance;
+notchOffsetZ = -(slidePlateTopOffset - lidTopThick) - notchHeight + slidePlateClearance;
+
 module pin (num, isFixedPosition) {
     bottomHeightClearanceFixed = 0.1;
     bottomHeightClearanceMoving = 0.4;
     bottomHeightClearance = isFixedPosition ? bottomHeightClearanceFixed : bottomHeightClearanceMoving;
-    bottomHeight = basePlateBaseTopOffset - lidTopThick;
     realBottomHeight = bottomHeight - bottomHeightClearance;
     
     
@@ -67,8 +73,6 @@ module pin (num, isFixedPosition) {
                 };
             };
             // Large notch in side
-            notchHeight = slidePlateThick + slidePlateClearance * 2 + slidePlateVerticalClearance;
-            notchOffsetZ = -(slidePlateTopOffset - lidTopThick) - notchHeight + slidePlateClearance;
             rotate([0, 0, numAngle - 180])
                 translate([bottomRadius - pinNotchDepth, -notchWidth / 2, notchOffsetZ])
                     cube([pinNotchDepth, notchWidth, notchHeight]);
@@ -81,8 +85,6 @@ module pin (num, isFixedPosition) {
             detentWidth = 1;
             detentDepth = 0.5;
             //detentHeight = basePlateDetentProngOffsetZ + detentProngHeight / 2 + 1.5;
-            detentExtraClearanceZ = 1;
-            detentHeight = detentProngHeight + 2 * detentExtraClearanceZ;
             for(ang = [0 : 360 / numPositions : 359]) {
                 rotate([0, 0, ang])
                     translate([0, 0, -bottomHeight + basePlateDetentProngOffsetZ - detentHeight / 2])
@@ -132,7 +134,7 @@ module pin (num, isFixedPosition) {
 }
 
 // How many of each pin
-duplicateCount = 9;
+duplicateCount = 1;
 // How many numbers
 startNum = 1;
 endNum = 9;
@@ -143,9 +145,12 @@ includeMovingPins = true;
 numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
 
 gridWidth = ceil(sqrt(duplicateCount * numPinTypes * numNums));
-movingPinSpacing = bottomRadius * 2 + 0.5;
+movingPinSpacing = bottomRadius * 2 + 4;
 fixedPinSpacing = bottomRadius * 2 + fixedPinFinExtension * 2 + fixedPinFinWidth;
 gridSpacing = includeFixedPins ? fixedPinSpacing : movingPinSpacing;
+
+useUpperStabilizingPlate = true;
+upperStabilizingPlateThick = 0.15;
 
 // Iterate through pin numbers, whether fixed or not, and 1-9 (need 9 of each type)
 union() {
@@ -159,5 +164,10 @@ union() {
                 translate([gridX * gridSpacing, gridY * gridSpacing, 0]) pin(pinNum, isFixed);
             }
         }
+    }
+    if (useUpperStabilizingPlate) {
+        stabilizingPlateZ = notchOffsetZ - upperStabilizingPlateThick - 0.75;
+        translate([0, 0, stabilizingPlateZ])
+            cube([(gridWidth - 1) * gridSpacing, (gridWidth - 1) * gridSpacing, upperStabilizingPlateThick]);
     }
 };

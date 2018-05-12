@@ -22,7 +22,7 @@ bottomHeight = basePlateBaseTopOffset - lidTopThick;
 notchHeight = slidePlateThick + slidePlateClearance * 2 + slidePlateVerticalClearance;
 notchOffsetZ = -(slidePlateTopOffset - lidTopThick) - notchHeight + slidePlateClearance;
 
-module pin (num, isFixedPosition) {
+module pin (num, isFixedPosition, includeSupport=false) {
     bottomHeightClearanceFixed = 0.1;
     bottomHeightClearanceMoving = 0.4;
     bottomHeightClearance = isFixedPosition ? bottomHeightClearanceFixed : bottomHeightClearanceMoving;
@@ -130,11 +130,65 @@ module pin (num, isFixedPosition) {
                 translate([0, 0, -bottomHeight + pinBottomCavityHeight/2])
                     cube([pinBottomCavityRadius * 2, fixedPosKeyWidth, pinBottomCavityHeight], center=true);*/
         }
+        
+        if (includeSupport  && !isFixedPosition) {
+            // Support is a wider cylinder around part of the bottom, linked loosely to the pin
+            supportCylinderDistanceToPin = 1.0;
+            supportCylinderThick = 1;
+            supportHeight = basePlateDetentProngOffsetZ - detentHeight / 2 - 1;
+            supportCylinderInnerRadius = bottomRadius + supportCylinderDistanceToPin;
+            supportCylinderOuterRadius = supportCylinderInnerRadius + supportCylinderThick;
+            supportAttachHeight = 0.15;
+            supportAttachDistance = 0;
+            attachmentGapWidth = supportCylinderInnerRadius * 0.7;
+            supportBaseSize = supportCylinderOuterRadius * 2 + 2;
+            supportBaseThick = 1.5;
+            supportPointDistance = 0.25;
+            supportPointHeight = 0.3;
+            numSupportPoints = 8;
+            translate([0, 0, -realBottomHeight])
+                union() {
+                    difference() {
+                        // Support cylinder
+                        cylinder(h=supportHeight, r=supportCylinderOuterRadius);
+                        // Inner cavity
+                        cylinder(h=supportHeight, r=supportCylinderInnerRadius);
+                    };
+                    // Attachments
+                    for (z = [supportHeight - supportAttachHeight - 1/*, supportHeight / 2*/])
+                        translate([0, 0, z])
+                            difference() {
+                                cylinder(h=supportAttachHeight, r=supportCylinderOuterRadius);
+                                cylinder(h=supportAttachHeight, r=bottomRadius + supportAttachDistance);
+                                for(ang = [numAngle, numAngle-90])
+                                    rotate([0, 0, ang])
+                                        translate([0, 0, supportAttachHeight/2])
+                                            cube([attachmentGapWidth, supportCylinderOuterRadius*2, supportAttachHeight], center=true);
+                            };
+                    // Support points
+                    pointSize = supportCylinderInnerRadius - bottomRadius - supportPointDistance;
+                    for(ang = [0 : 360/numSupportPoints : 359])
+                        rotate([0, 0, ang])
+                            translate([supportCylinderInnerRadius, 0, supportHeight - supportPointHeight])
+                                linear_extrude(supportPointHeight)
+                                    polygon([
+                                        [0, pointSize/2],
+                                        [0, -pointSize/2],
+                                        [-pointSize, 0]
+                                    ]);
+                    // Base
+                    difference() {
+                        translate([0, 0, supportBaseThick/2])
+                            cube([supportBaseSize, supportBaseSize, supportBaseThick], center=true);
+                        cylinder(h=supportBaseThick, r=supportCylinderInnerRadius);
+                    };
+                };
+        }
     };
 }
 
 // How many of each pin
-duplicateCount = 1;
+duplicateCount = 9;
 // How many numbers
 startNum = 1;
 endNum = 9;
@@ -144,12 +198,14 @@ includeFixedPins = false;
 includeMovingPins = true;
 numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
 
+includeSupport = true;
+
 gridWidth = ceil(sqrt(duplicateCount * numPinTypes * numNums));
 movingPinSpacing = bottomRadius * 2 + 4;
 fixedPinSpacing = bottomRadius * 2 + fixedPinFinExtension * 2 + fixedPinFinWidth;
 gridSpacing = includeFixedPins ? fixedPinSpacing : movingPinSpacing;
 
-useUpperStabilizingPlate = true;
+useUpperStabilizingPlate = false;
 upperStabilizingPlateThick = 0.15;
 
 // Iterate through pin numbers, whether fixed or not, and 1-9 (need 9 of each type)
@@ -161,7 +217,7 @@ union() {
                 gridX = floor(gridNum / gridWidth);
                 gridY = gridNum % gridWidth;
                 isFixed = includeMovingPins ? typeNum : 1;
-                translate([gridX * gridSpacing, gridY * gridSpacing, 0]) pin(pinNum, isFixed);
+                translate([gridX * gridSpacing, gridY * gridSpacing, 0]) pin(pinNum, isFixed, includeSupport);
             }
         }
     }

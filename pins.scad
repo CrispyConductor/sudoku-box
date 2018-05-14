@@ -201,7 +201,7 @@ numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
 includeSupport = true;
 
 gridWidth = ceil(sqrt(duplicateCount * numPinTypes * numNums));
-movingPinSpacing = bottomRadius * 2 + 4;
+movingPinSpacing = bottomRadius * 2 + 5;
 fixedPinSpacing = bottomRadius * 2 + fixedPinFinExtension * 2 + fixedPinFinWidth;
 gridSpacing = includeFixedPins ? fixedPinSpacing : movingPinSpacing;
 

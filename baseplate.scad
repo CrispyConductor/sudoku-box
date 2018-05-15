@@ -61,7 +61,7 @@ difference() {
 
 module pinBaseModule() {
     // Pivot peg
-    pinBottomCavityHeightClearance = 1;
+    pinBottomCavityHeightClearance = 2;
     cylinder(h=pinBottomCavityHeight - pinBottomCavityHeightClearance, r=pinBottomCavityRadius - pinBottomCavityClearance);
     // Surround
     pinSurroundClearance = pinBottomCavityClearance;

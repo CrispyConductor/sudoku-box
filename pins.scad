@@ -142,7 +142,7 @@ module pin (num, isFixedPosition, includeSupport=false) {
             supportAttachDistance = 0;
             attachmentGapWidth = supportCylinderInnerRadius * 0.7;
             supportBaseSize = supportCylinderOuterRadius * 2 + 2;
-            supportBaseThick = 1.5;
+            supportBaseThick = 0.75;
             supportPointDistance = 0.25;
             supportPointHeight = 0.3;
             numSupportPoints = 8;
@@ -188,14 +188,14 @@ module pin (num, isFixedPosition, includeSupport=false) {
 }
 
 // How many of each pin
-duplicateCount = 9;
+duplicateCount = 3;
 // How many numbers
 startNum = 1;
 endNum = 9;
 numNums = endNum - startNum + 1;
 
 includeFixedPins = false;
-includeMovingPins = true;
+includeMovingPins = !includeFixedPins;
 numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
 
 includeSupport = true;

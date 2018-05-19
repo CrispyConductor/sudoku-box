@@ -131,12 +131,12 @@ module pin (num, isFixedPosition, includeSupport=false) {
                     cube([pinBottomCavityRadius * 2, fixedPosKeyWidth, pinBottomCavityHeight], center=true);*/
         }
         
-        if (includeSupport  && !isFixedPosition) {
+        if (includeSupport) {
             // Support is a wider cylinder around part of the bottom, linked loosely to the pin
             supportCylinderDistanceToPin = 1.0;
             supportCylinderThick = 1;
             supportHeight = basePlateDetentProngOffsetZ - detentHeight / 2 - 1;
-            supportCylinderInnerRadius = bottomRadius + supportCylinderDistanceToPin;
+            supportCylinderInnerRadius = bottomRadius + supportCylinderDistanceToPin + (isFixedPosition?fixedPinFinExtension:0);
             supportCylinderOuterRadius = supportCylinderInnerRadius + supportCylinderThick;
             supportAttachHeight = 0.15;
             supportAttachDistance = 0;
@@ -166,6 +166,7 @@ module pin (num, isFixedPosition, includeSupport=false) {
                                             cube([attachmentGapWidth, supportCylinderOuterRadius*2, supportAttachHeight], center=true);
                             };
                     // Support points
+                    /*
                     pointSize = supportCylinderInnerRadius - bottomRadius - supportPointDistance;
                     for(ang = [0 : 360/numSupportPoints : 359])
                         rotate([0, 0, ang])
@@ -176,6 +177,7 @@ module pin (num, isFixedPosition, includeSupport=false) {
                                         [0, -pointSize/2],
                                         [-pointSize, 0]
                                     ]);
+                    */
                     // Base
                     difference() {
                         translate([0, 0, supportBaseThick/2])
@@ -188,13 +190,13 @@ module pin (num, isFixedPosition, includeSupport=false) {
 }
 
 // How many of each pin
-duplicateCount = 3;
+duplicateCount = 1;
 // How many numbers
 startNum = 1;
 endNum = 9;
 numNums = endNum - startNum + 1;
 
-includeFixedPins = false;
+includeFixedPins = true;
 includeMovingPins = !includeFixedPins;
 numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
 
@@ -202,7 +204,7 @@ includeSupport = true;
 
 gridWidth = ceil(sqrt(duplicateCount * numPinTypes * numNums));
 movingPinSpacing = bottomRadius * 2 + 5;
-fixedPinSpacing = bottomRadius * 2 + fixedPinFinExtension * 2 + fixedPinFinWidth;
+fixedPinSpacing = bottomRadius * 2 + fixedPinFinExtension * 2 + fixedPinFinWidth + 3;
 gridSpacing = includeFixedPins ? fixedPinSpacing : movingPinSpacing;
 
 useUpperStabilizingPlate = false;

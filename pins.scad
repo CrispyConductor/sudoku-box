@@ -138,9 +138,9 @@ module pin (num, isFixedPosition, includeSupport=false) {
             supportHeight = basePlateDetentProngOffsetZ - detentHeight / 2 - 1;
             supportCylinderInnerRadius = bottomRadius + supportCylinderDistanceToPin + (isFixedPosition?fixedPinFinExtension:0);
             supportCylinderOuterRadius = supportCylinderInnerRadius + supportCylinderThick;
-            supportAttachHeight = 0.15;
-            supportAttachDistance = 0;
-            attachmentGapWidth = supportCylinderInnerRadius * 0.7;
+            attachPointWidth = 1; // Width of attachment point between support cylinder and pin
+            attachPointOuterWidth = attachPointWidth * 3;
+            attachPointHeight = 0.15;
             supportBaseSize = supportCylinderOuterRadius * 2 + 2;
             supportBaseThick = 0.75;
             supportPointDistance = 0.25;
@@ -154,8 +154,24 @@ module pin (num, isFixedPosition, includeSupport=false) {
                         // Inner cavity
                         cylinder(h=supportHeight, r=supportCylinderInnerRadius);
                     };
-                    // Attachments
-                    for (z = [supportHeight - supportAttachHeight - 1/*, supportHeight / 2*/])
+                    // Attachment points
+                    attachPointRadius = sqrt(pow(pinBottomRadius, 2) - pow(attachPointWidth/2, 2)); // dist from center of pin to nearest point of attachment
+                    attachPointLength = supportCylinderInnerRadius - attachPointRadius;
+                    for (ang = [0, 90, 180, 270])
+                        rotate([0, 0, ang])
+                            translate([supportCylinderInnerRadius-attachPointLength, 0, supportHeight-attachPointHeight-1])
+                                linear_extrude(attachPointHeight)
+                                    polygon([
+                                        [0, attachPointWidth/2],
+                                        [attachPointLength, attachPointOuterWidth/2],
+                                        [attachPointLength, -attachPointOuterWidth/2],
+                                        [0, -attachPointWidth/2]
+                                    ]);
+                    /*
+                    attachmentGapWidth = supportCylinderInnerRadius * 0.7;
+                    supportAttachHeight = 0.15;
+                    supportAttachDistance = 0;
+                    for (z = [supportHeight - supportAttachHeight - 1])
                         translate([0, 0, z])
                             difference() {
                                 cylinder(h=supportAttachHeight, r=supportCylinderOuterRadius);
@@ -165,6 +181,7 @@ module pin (num, isFixedPosition, includeSupport=false) {
                                         translate([0, 0, supportAttachHeight/2])
                                             cube([attachmentGapWidth, supportCylinderOuterRadius*2, supportAttachHeight], center=true);
                             };
+                    */
                     // Support points
                     /*
                     pointSize = supportCylinderInnerRadius - bottomRadius - supportPointDistance;
@@ -193,7 +210,7 @@ module pin (num, isFixedPosition, includeSupport=false) {
 duplicateCount = 1;
 // How many numbers
 startNum = 1;
-endNum = 9;
+endNum = 1;
 numNums = endNum - startNum + 1;
 
 includeFixedPins = true;
@@ -206,6 +223,7 @@ gridWidth = ceil(sqrt(duplicateCount * numPinTypes * numNums));
 movingPinSpacing = bottomRadius * 2 + 5;
 fixedPinSpacing = bottomRadius * 2 + fixedPinFinExtension * 2 + fixedPinFinWidth + 3;
 gridSpacing = includeFixedPins ? fixedPinSpacing : movingPinSpacing;
+//echo("fixedPinSpacing", fixedPinSpacing, "movingPinSpacing", movingPinSpacing);
 
 useUpperStabilizingPlate = false;
 upperStabilizingPlateThick = 0.15;

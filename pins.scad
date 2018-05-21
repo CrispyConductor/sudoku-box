@@ -220,8 +220,8 @@ numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
 includeSupport = true;
 
 gridWidth = ceil(sqrt(duplicateCount * numPinTypes * numNums));
-movingPinSpacing = bottomRadius * 2 + 5;
-fixedPinSpacing = bottomRadius * 2 + fixedPinFinExtension * 2 + fixedPinFinWidth + 3.3;
+movingPinSpacing = bottomRadius * 2 + (includeSupport ? 5 : 1.5);
+fixedPinSpacing = bottomRadius * 2 + fixedPinFinExtension * 2 + fixedPinFinWidth + (includeSupport ? 3.3 : 1);
 gridSpacing = includeFixedPins ? fixedPinSpacing : movingPinSpacing;
 //echo("fixedPinSpacing", fixedPinSpacing, "movingPinSpacing", movingPinSpacing);
 

@@ -207,13 +207,14 @@ module pin (num, isFixedPosition, includeSupport=false) {
 }
 
 // How many of each pin
-duplicateCount = 1;
+duplicateCount = 9;
+includeFixedPins = false;
 // How many numbers
 startNum = 1;
 endNum = 9;
+
 numNums = endNum - startNum + 1;
 
-includeFixedPins = true;
 includeMovingPins = !includeFixedPins;
 numPinTypes = (includeFixedPins ? 1 : 0) + (includeMovingPins ? 1 : 0);
 
